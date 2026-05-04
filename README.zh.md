@@ -4,7 +4,7 @@
 
 [English](./README.md) | 简体中文
 
-![Project Coding Skills 工作流](./docs/assets/project-coding-skills-flow.svg)
+![Project Coding Skills 工作流](./docs/assets/project-coding-skills-flow-zh.svg)
 
 这个项目的核心思想很简单：
 
