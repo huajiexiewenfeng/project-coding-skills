@@ -35,6 +35,15 @@ Optional when relevant:
 - `coding-rules.md`
 - `open-questions.md`
 
+## Context Approval Check
+
+Before relying on project-local context:
+
+- Read `open-questions.md` if it exists.
+- If it contains unresolved architecture, coding-rule, or project-boundary questions, warn the user.
+- If the generated context appears to be an unreviewed draft, recommend team lead or architect review before broad team use.
+- For the current task, continue only if the user accepts the risk or the unresolved questions are unrelated to the feature.
+
 ## Before Coding
 
 1. Restate the feature request briefly.

@@ -70,6 +70,7 @@ AI-generated docs are context, not authority.
 Each project owns its own docs/ai-coding/.
 Never reuse context from another project.
 Commit docs/ai-coding/ to the target project's Git repository.
+Use project-feature-dev after the team lead or architect has reviewed the generated context.
 ```
 
 ## Installation
@@ -117,7 +118,11 @@ Use develop:init to initialize this project's AI coding context.
 
 The skill generates `docs/ai-coding/` in that project.
 
-Review the generated files, especially:
+### 2. Calibrate and approve the context
+
+`project-context-init` generates a draft. Before the team uses it for feature development, a team lead or architect should review and adjust the generated files.
+
+Review especially:
 
 ```text
 docs/ai-coding/open-questions.md
@@ -125,9 +130,16 @@ docs/ai-coding/coding-rules.md
 docs/ai-coding/feature-prompt-context.md
 ```
 
-Then commit `docs/ai-coding/` to that business project's Git repository so every team member and AI agent uses the same context.
+The reviewer should:
 
-### 2. Develop a feature
+- resolve or explicitly keep items in `open-questions.md`
+- correct project-specific rules in `coding-rules.md`
+- refine the reusable team prompt in `feature-prompt-context.md`
+- commit the approved `docs/ai-coding/` to the business project's Git repository
+
+After that commit, every team member and AI agent uses the same context.
+
+### 3. Develop a feature
 
 In the same business project:
 

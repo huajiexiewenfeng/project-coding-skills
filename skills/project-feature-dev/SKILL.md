@@ -20,6 +20,7 @@ Never reuse docs/ai-coding from another project.
 Never apply rules from previous conversations to a different project.
 Source code wins over docs/ai-coding when they conflict.
 If docs/ai-coding does not exist, recommend project-context-init.
+If docs/ai-coding appears unreviewed or open-questions.md contains unresolved project-rule questions, warn before relying on it.
 ```
 
 ## Required References
@@ -34,14 +35,15 @@ Read these reference files when using this skill:
 1. Resolve the project root.
 2. Check for `docs/ai-coding/` in that project root.
 3. Read `docs/ai-coding/feature-prompt-context.md`.
-4. Read `project-profile.md`, `architecture-summary.md`, and `coding-rules.md` as needed.
-5. Understand the user's feature request.
-6. Read related source code in the same project root.
-7. Find similar implementation examples.
-8. Use brainstorming if the requirement or design is unclear.
-9. Implement according to project-local context.
-10. Run relevant verification.
-11. Summarize changes, verification, risks, and manual review points.
+4. Read `open-questions.md` and warn if project-rule questions appear unresolved.
+5. Read `project-profile.md`, `architecture-summary.md`, and `coding-rules.md` as needed.
+6. Understand the user's feature request.
+7. Read related source code in the same project root.
+8. Find similar implementation examples.
+9. Use brainstorming if the requirement or design is unclear.
+10. Implement according to project-local context.
+11. Run relevant verification.
+12. Summarize changes, verification, risks, and manual review points.
 
 ## Missing Context Behavior
 

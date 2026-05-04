@@ -23,6 +23,7 @@ Never inherit coding rules from previous conversations unless the user explicitl
 Do not modify production code.
 Do not silently overwrite architect-edited docs/ai-coding files.
 Generated docs/ai-coding files are project-local shared context and should be committed to that project's Git repository.
+Generated docs/ai-coding files are drafts until a team lead or architect reviews and approves them.
 ```
 
 ## Required References
@@ -41,7 +42,8 @@ Read these reference files before generating output:
 4. Compare AI-doc claims against source facts.
 5. Generate or merge `docs/ai-coding/` files.
 6. Preserve architect-edited content and write conflicts to `open-questions.md`.
-7. Summarize generated files and architect review points.
+7. Mark the generated context as requiring team lead or architect review before team-wide use.
+8. Summarize generated files and architect review points.
 
 ## Project Root Resolution
 
@@ -90,4 +92,5 @@ After running, report:
 - Existing AI docs discovered.
 - Important source facts used.
 - Conflicts or uncertainties written to `open-questions.md`.
+- Clear note that the generated context is a draft until reviewed by a team lead or architect.
 - Reminder to commit `docs/ai-coding/` to the project Git repository.

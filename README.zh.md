@@ -70,6 +70,7 @@ AI 生成文档只是上下文，不是权威。
 每个项目拥有自己的 docs/ai-coding/。
 禁止复用其他项目的上下文。
 docs/ai-coding/ 应提交到目标项目的 Git 仓库。
+应在团队 leader 或架构师校准后，再使用 project-feature-dev 进行功能开发。
 ```
 
 ## 安装方式
@@ -121,7 +122,11 @@ skill 会在当前业务项目中生成：
 docs/ai-coding/
 ```
 
-架构师或负责人重点 review：
+### 2. 校准并批准上下文
+
+`project-context-init` 生成的是草稿。团队正式使用它开发功能之前，需要由团队 leader 或架构师 review 并调整生成文件。
+
+重点 review：
 
 ```text
 docs/ai-coding/open-questions.md
@@ -129,9 +134,16 @@ docs/ai-coding/coding-rules.md
 docs/ai-coding/feature-prompt-context.md
 ```
 
-确认后，将 `docs/ai-coding/` 提交到业务项目 Git 仓库，确保团队所有成员和 AI Agent 使用同一份上下文。
+review 人需要：
 
-### 2. 开发功能
+- 处理或明确保留 `open-questions.md` 中的问题
+- 修正 `coding-rules.md` 中的项目规则
+- 调整 `feature-prompt-context.md` 中的团队通用 prompt
+- 将批准后的 `docs/ai-coding/` 提交到业务项目 Git 仓库
+
+提交后，团队所有成员和 AI Agent 才使用同一份上下文。
+
+### 3. 开发功能
 
 在同一个业务项目中执行：
 
