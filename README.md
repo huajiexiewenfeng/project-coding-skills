@@ -4,6 +4,8 @@ Reusable AI coding skills for project-local context initialization and feature d
 
 English | [简体中文](./README.zh.md)
 
+![Project Coding Skills workflow](./docs/assets/project-coding-skills-flow.svg)
+
 This project helps AI coding agents work with the rules of the current repository instead of carrying assumptions from another project. The core idea is simple:
 
 > Skills are global. Project rules are local.

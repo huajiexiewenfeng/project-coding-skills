@@ -4,6 +4,8 @@
 
 [English](./README.md) | 简体中文
 
+![Project Coding Skills 工作流](./docs/assets/project-coding-skills-flow.svg)
+
 这个项目的核心思想很简单：
 
 > Skill 是全局通用的，项目规则是项目本地的。

@@ -1,0 +1,83 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="560" viewBox="0 0 1200 560" role="img" aria-labelledby="title desc">
+  <title id="title">Project Coding Skills workflow</title>
+  <desc id="desc">A workflow diagram showing project-context-init generating docs, architect approval, Git sharing, and project-feature-dev using approved context for feature development.</desc>
+  <defs>
+    <linearGradient id="bg" x1="0" x2="1" y1="0" y2="1">
+      <stop offset="0%" stop-color="#f8fafc"/>
+      <stop offset="100%" stop-color="#eef6ff"/>
+    </linearGradient>
+    <filter id="shadow" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="0" dy="10" stdDeviation="12" flood-color="#0f172a" flood-opacity="0.12"/>
+    </filter>
+    <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="9" markerHeight="9" orient="auto-start-reverse">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#2563eb"/>
+    </marker>
+    <style>
+      .title { font: 700 34px Arial, sans-serif; fill: #0f172a; }
+      .subtitle { font: 400 18px Arial, sans-serif; fill: #475569; }
+      .card-title { font: 700 22px Arial, sans-serif; fill: #0f172a; }
+      .card-text { font: 400 15px Arial, sans-serif; fill: #475569; }
+      .label { font: 700 13px Arial, sans-serif; fill: #2563eb; letter-spacing: 0.4px; }
+      .small { font: 400 13px Arial, sans-serif; fill: #64748b; }
+      .code { font: 700 15px Consolas, "Courier New", monospace; fill: #0f172a; }
+      .card { fill: #ffffff; stroke: #dbeafe; stroke-width: 2; rx: 18; filter: url(#shadow); }
+      .mini { fill: #eff6ff; stroke: #bfdbfe; stroke-width: 1.5; rx: 10; }
+      .git { fill: #f0fdf4; stroke: #bbf7d0; stroke-width: 2; rx: 18; filter: url(#shadow); }
+      .warn { fill: #fff7ed; stroke: #fed7aa; stroke-width: 2; rx: 18; filter: url(#shadow); }
+      .line { stroke: #2563eb; stroke-width: 3; fill: none; marker-end: url(#arrow); }
+    </style>
+  </defs>
+
+  <rect width="1200" height="560" fill="url(#bg)"/>
+
+  <text x="60" y="64" class="title">Project Coding Skills</text>
+  <text x="60" y="96" class="subtitle">Global skills, project-local rules, shared through Git.</text>
+
+  <rect x="60" y="145" width="245" height="260" class="card"/>
+  <text x="88" y="184" class="label">STEP 1</text>
+  <text x="88" y="216" class="card-title">Context Init</text>
+  <text x="88" y="246" class="code">project-context-init</text>
+  <text x="88" y="278" class="card-text">Scan source code first</text>
+  <text x="88" y="302" class="card-text">Read AI docs as context</text>
+  <text x="88" y="326" class="card-text">Generate draft docs</text>
+  <rect x="88" y="352" width="188" height="32" class="mini"/>
+  <text x="104" y="373" class="small">docs/ai-coding/*</text>
+
+  <path d="M 315 275 C 350 275, 365 275, 400 275" class="line"/>
+
+  <rect x="410" y="145" width="245" height="260" class="warn"/>
+  <text x="438" y="184" class="label">STEP 2</text>
+  <text x="438" y="216" class="card-title">Calibrate</text>
+  <text x="438" y="246" class="card-text">Team lead or architect</text>
+  <text x="438" y="270" class="card-text">reviews generated drafts</text>
+  <text x="438" y="294" class="card-text">resolves open questions</text>
+  <rect x="438" y="326" width="188" height="32" class="mini"/>
+  <text x="454" y="347" class="small">coding-rules.md</text>
+  <rect x="438" y="366" width="188" height="32" class="mini"/>
+  <text x="454" y="387" class="small">feature context</text>
+
+  <path d="M 665 275 C 700 275, 715 275, 750 275" class="line"/>
+
+  <rect x="760" y="145" width="170" height="260" class="git"/>
+  <text x="792" y="184" class="label">STEP 3</text>
+  <text x="792" y="216" class="card-title">Share</text>
+  <text x="792" y="248" class="card-text">Commit approved</text>
+  <text x="792" y="272" class="card-text">context to the</text>
+  <text x="792" y="296" class="card-text">project Git repo</text>
+  <rect x="792" y="334" width="106" height="36" class="mini"/>
+  <text x="814" y="357" class="code">Git</text>
+
+  <path d="M 940 275 C 975 275, 990 275, 1025 275" class="line"/>
+
+  <rect x="1035" y="145" width="105" height="260" class="card"/>
+  <text x="1059" y="184" class="label">STEP 4</text>
+  <text x="1059" y="216" class="card-title">Dev</text>
+  <text x="1059" y="248" class="code">feature</text>
+  <text x="1059" y="272" class="code">dev</text>
+  <text x="1059" y="316" class="small">load rules</text>
+  <text x="1059" y="340" class="small">read code</text>
+  <text x="1059" y="364" class="small">build</text>
+
+  <rect x="96" y="448" width="1008" height="52" fill="#ffffff" stroke="#dbeafe" stroke-width="1.5" rx="14"/>
+  <text x="126" y="480" class="small">Source code wins over generated docs. Each project owns its own docs/ai-coding. Never reuse context across projects.</text>
+</svg>
