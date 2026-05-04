@@ -1,0 +1,8 @@
+# Local design and execution-planning notes
+articles/ai-development-skill-system-design.md
+articles/*design*.md
+articles/*设计*.md
+docs/**/*design*.md
+docs/**/*设计*.md
+docs/superpowers/plans/
+docs/superpowers/specs/
