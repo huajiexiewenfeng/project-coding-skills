@@ -40,7 +40,7 @@ Alias: `develop:init`
 
 Use this skill to initialize or refresh project-local AI coding context.
 
-It scans the current project, treats source code as the source of truth, reads existing AI-generated documents as supporting context, and generates:
+It scans the current project, treats source code as the source of truth, reads existing AI-generated documents as supporting context, classifies prompt templates separately, and generates:
 
 ```text
 docs/ai-coding/
@@ -137,6 +137,7 @@ The reviewer should:
 - resolve or explicitly keep items in `open-questions.md`
 - correct project-specific rules in `coding-rules.md`
 - refine the reusable team prompt in `feature-prompt-context.md`
+- decide whether discovered prompt templates should become approved per-feature intake templates
 - commit the approved `docs/ai-coding/` to the business project's Git repository
 
 After that commit, every team member and AI agent uses the same context.
@@ -169,7 +170,7 @@ docs/**/*.md
 *prompt*.md
 ```
 
-Important: these documents are supporting context only. If they conflict with source code, source code wins.
+Important: these documents are supporting context only. If they conflict with source code, source code wins. Prompt templates with placeholders are registered as feature-intake templates; they are not treated as project facts until reviewed and calibrated.
 
 ## Repository Layout
 

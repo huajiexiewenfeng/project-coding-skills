@@ -2,7 +2,7 @@
 
 ## Goal
 
-Use existing AI-generated documents to restore project context, while treating source code as the authority.
+Use existing AI-generated documents to restore project context, while treating source code as the authority. Treat prompt templates with placeholders as feature-intake templates, not project facts.
 
 ## Discovery Paths
 
@@ -37,10 +37,33 @@ Read in this order:
 
 1. Source code, config, build files, tests.
 2. Project-maintained human docs.
-3. Project-maintained prompt, design, enum, API, and adapter docs under `docs/`.
+3. Project-maintained design, enum, API, and adapter docs under `docs/`.
 4. Superpower specs and plans.
 5. Graphify reports.
 6. Other AI-generated temporary docs.
+
+## Document Classification
+
+Classify every discovered document before using it:
+
+| Class | Examples | How to use |
+|---|---|---|
+| `factual-context` | architecture notes, API notes, enum design, module guides | Verify claims against source code before promoting to rules. |
+| `design-note` | specs, plans, ADR-like docs | Treat as intent or rationale; verify current implementation. |
+| `graph-report` | `graphify-out/GRAPH_REPORT.md` | Use as a navigation aid and confidence-marked supporting context. |
+| `prompt-template` | `*prompt*.md` with placeholders such as `<feature>`, `<branch>`, `<API URL>` | Register as an intake template. Do not treat placeholder text or per-feature examples as project facts. |
+
+## Prompt Template Rules
+
+When a document is a prompt template:
+
+- Record it in `ai-context-sources.md` with source type `prompt-template`.
+- Summarize its intended use and required placeholders.
+- Do not extract project coding rules from placeholder sections.
+- Do not put per-feature variables into `coding-rules.md`.
+- Do not copy the full template into `feature-prompt-context.md`.
+- Add a manual review item asking the team lead or architect to decide which fields become the approved feature intake.
+- If the template contains stable project constraints, verify those constraints against source code or human-maintained docs before promoting them.
 
 ## Graphify Rules
 
@@ -79,3 +102,4 @@ For every useful AI document, record:
 - Trust level.
 - Confirmed facts.
 - Unconfirmed claims.
+- Required placeholders, if the source is a prompt template.

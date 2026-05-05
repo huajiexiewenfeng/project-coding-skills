@@ -113,7 +113,15 @@ Existing AI-generated documents are supporting context, not authority.
 
 | Path | Source Type | Summary | Trust Level | Notes |
 |---|---|---|---|---|
-| `<path>` | `<superpower | graphify | other-ai | manual-doc>` | `<summary>` | `<source-confirmed | partial | uncertain>` | `<notes>` |
+| `<path>` | `<superpower | graphify | prompt-template | other-ai | manual-doc>` | `<summary>` | `<source-confirmed | template-not-fact | partial | uncertain>` | `<notes>` |
+
+## Prompt Templates Found
+
+Prompt templates are feature-intake aids, not source-of-truth project facts.
+
+| Path | Intended Use | Required Placeholders | Architect Decision |
+|---|---|---|---|
+| `<path>` | `<when this template is useful>` | `<fields users must fill per feature>` | `<approve / adapt / ignore / unknown>` |
 
 ## Conflicts With Source Code
 
@@ -156,6 +164,15 @@ Existing AI-generated documents are supporting context, not authority.
 7. Add or update tests when business logic changes.
 8. Run relevant verification.
 
+## Feature Intake
+
+If this project has an approved prompt template, collect these values before implementation:
+
+- `<field name>`: `<why it is needed>`
+
+Do not treat unfilled placeholders as requirements.
+Do not apply a prompt template from another project.
+
 ## Final Response
 
 Always include:
@@ -174,6 +191,7 @@ Always include:
 ## Needs Architect Review
 
 - `<question>`
+- `<prompt template path>`: decide whether it should become the approved per-feature intake template.
 
 ## Source vs AI Doc Conflicts
 

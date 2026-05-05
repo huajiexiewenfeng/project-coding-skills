@@ -16,6 +16,7 @@ This skill generates `docs/ai-coding/` inside the target business project. It do
 ```text
 Source code, configuration, build files, and tests are the source of truth.
 Existing AI-generated docs are supporting context, not authority.
+Prompt templates with placeholders are feature-intake templates, not project facts.
 When AI docs conflict with source code, source code wins.
 Always resolve context from the current working directory or an explicitly specified project root.
 When the user provides focus modules or scope paths, keep project root broad enough for shared docs but limit source sampling to those paths.
@@ -41,11 +42,13 @@ Read these reference files before generating output:
 2. Identify optional focus modules or scope paths.
 3. Build the source-code fact base from the project root, prioritizing focus paths when provided.
 4. Discover existing AI-generated documents inside the project root.
-5. Compare AI-doc claims against source facts.
-6. Generate or merge `docs/ai-coding/` files.
-7. Preserve architect-edited content and write conflicts to `open-questions.md`.
-8. Mark the generated context as requiring team lead or architect review before team-wide use.
-9. Summarize generated files and architect review points.
+5. Classify discovered documents as factual context, design notes, graph reports, or prompt templates.
+6. Compare factual AI-doc claims against source facts.
+7. Generate or merge `docs/ai-coding/` files.
+8. Preserve architect-edited content and write conflicts to `open-questions.md`.
+9. Mark prompt templates as requiring architect calibration before use in feature work.
+10. Mark the generated context as requiring team lead or architect review before team-wide use.
+11. Summarize generated files and architect review points.
 
 ## Project Root Resolution
 

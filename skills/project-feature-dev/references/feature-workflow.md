@@ -40,6 +40,8 @@ Optional when relevant:
 
 If `project-profile.md` or `architecture-summary.md` declares focus modules, use those modules as the primary source-reading scope for feature work.
 
+If `feature-prompt-context.md` declares an approved feature intake template, collect the required per-feature values before implementation. Examples include API document URL, target branch, feature type, target capability, and extra constraints. Do not treat unfilled placeholders as requirements.
+
 ## Context Approval Check
 
 Before relying on project-local context:
@@ -56,7 +58,8 @@ Before relying on project-local context:
 3. Read related code.
 4. Find similar existing implementation.
 5. Note any relevant project-local coding rules.
-6. Use brainstorming if requirements or behavior are not clear.
+6. Fill or ask for any approved feature-intake fields that are required for this feature.
+7. Use brainstorming if requirements or behavior are not clear.
 
 ## Implementation Rules
 
