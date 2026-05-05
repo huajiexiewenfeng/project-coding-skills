@@ -62,3 +62,7 @@ Do not duplicate brainstorming. Load project context first, then let brainstormi
 ## Final Response
 
 Use the template in `references/final-response-template.md`.
+
+## Project Root Resolution Note
+
+When running from a submodule, first search upward for an existing `docs/ai-coding/`. Prefer that directory's owner as the project root. Only fall back to build markers such as `pom.xml`, `build.gradle`, `settings.gradle`, or `.git` when no project-local AI context exists.

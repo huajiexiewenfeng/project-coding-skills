@@ -8,9 +8,12 @@ Use this order:
 
 1. User-provided path.
 2. Current working directory.
-3. Nearest ancestor containing `docs/ai-coding`, `pom.xml`, `build.gradle`, `settings.gradle`, or `.git`.
+3. Nearest ancestor containing `docs/ai-coding`.
+4. Nearest ancestor containing `pom.xml`, `build.gradle`, `settings.gradle`, or `.git`.
 
 If multiple roots are plausible, ask the user to confirm.
+
+For multi-module projects, prefer the root that owns `docs/ai-coding/`, even when the current submodule also has a build file.
 
 ## Context Loading
 
