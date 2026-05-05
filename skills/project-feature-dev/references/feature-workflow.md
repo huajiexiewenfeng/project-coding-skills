@@ -38,6 +38,8 @@ Optional when relevant:
 - `coding-rules.md`
 - `open-questions.md`
 
+If `project-profile.md` or `architecture-summary.md` declares focus modules, use those modules as the primary source-reading scope for feature work.
+
 ## Context Approval Check
 
 Before relying on project-local context:
@@ -50,7 +52,7 @@ Before relying on project-local context:
 ## Before Coding
 
 1. Restate the feature request briefly.
-2. Identify likely modules or packages.
+2. Identify likely modules or packages, prioritizing declared focus modules.
 3. Read related code.
 4. Find similar existing implementation.
 5. Note any relevant project-local coding rules.

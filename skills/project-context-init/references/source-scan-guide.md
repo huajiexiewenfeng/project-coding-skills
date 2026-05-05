@@ -19,7 +19,7 @@ Inspect:
 
 ## Java Web Source Areas
 
-Inspect available paths:
+Inspect available paths. If focus modules or scope paths were provided, apply these patterns inside those paths first:
 
 - `src/main/java`
 - `src/main/resources`
@@ -44,6 +44,27 @@ Find up to five examples for each category when present:
 
 Prefer files that are recently modified, central to a module, or referenced by multiple classes.
 
+## Focus Scope
+
+For large or multi-module repositories, project root and source scan scope can be different.
+
+Project root is used for:
+
+- root build files
+- shared `docs/`
+- existing AI-generated documents
+- generated `docs/ai-coding/`
+
+Focus scope is used for detailed source sampling.
+
+When focus paths are provided:
+
+- Sample source code primarily inside those paths.
+- Read other modules only when referenced by focused modules.
+- Record focus paths in `project-profile.md`.
+- Summarize non-focused modules as out of scope unless they define shared APIs, DTOs, enums, clients, configuration, or tests used by the focused modules.
+- Do not infer global project rules from non-focused modules.
+
 ## Evidence Rules
 
 When writing project facts:
@@ -61,6 +82,7 @@ If multiple modules exist:
 - List modules in `project-profile.md`.
 - Summarize module responsibilities in `architecture-summary.md`.
 - Keep generated `docs/ai-coding/` at the project root unless the user explicitly asks for module-local context.
+- If focus modules were provided, mark them as the primary coding context.
 
 ## Commands
 

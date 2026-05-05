@@ -18,6 +18,7 @@ Source code, configuration, build files, and tests are the source of truth.
 Existing AI-generated docs are supporting context, not authority.
 When AI docs conflict with source code, source code wins.
 Always resolve context from the current working directory or an explicitly specified project root.
+When the user provides focus modules or scope paths, keep project root broad enough for shared docs but limit source sampling to those paths.
 Never reuse docs/ai-coding from another project.
 Never inherit coding rules from previous conversations unless the user explicitly points to the same project root.
 Do not modify production code.
@@ -37,13 +38,14 @@ Read these reference files before generating output:
 ## Workflow
 
 1. Resolve the project root.
-2. Build the source-code fact base from the project root.
-3. Discover existing AI-generated documents inside the project root.
-4. Compare AI-doc claims against source facts.
-5. Generate or merge `docs/ai-coding/` files.
-6. Preserve architect-edited content and write conflicts to `open-questions.md`.
-7. Mark the generated context as requiring team lead or architect review before team-wide use.
-8. Summarize generated files and architect review points.
+2. Identify optional focus modules or scope paths.
+3. Build the source-code fact base from the project root, prioritizing focus paths when provided.
+4. Discover existing AI-generated documents inside the project root.
+5. Compare AI-doc claims against source facts.
+6. Generate or merge `docs/ai-coding/` files.
+7. Preserve architect-edited content and write conflicts to `open-questions.md`.
+8. Mark the generated context as requiring team lead or architect review before team-wide use.
+9. Summarize generated files and architect review points.
 
 ## Project Root Resolution
 
@@ -59,6 +61,27 @@ Use this order:
    - `docs/ai-coding`
 
 If multiple plausible roots exist, ask the user to confirm before writing files.
+
+## Focus Scope
+
+For large or multi-module repositories, the project root and source scan scope may be different.
+
+Use the project root for:
+
+- shared `docs/`
+- existing AI documents
+- root build files
+- generated `docs/ai-coding/`
+- repository-level Git context
+
+Use focus scope for source sampling when the user provides paths such as:
+
+```text
+dji-dock3-adapter
+dock-api
+```
+
+Do not scan every module equally when focus scope is provided. Summarize out-of-scope modules only when they are needed to explain dependencies or boundaries.
 
 ## Output Contract
 
@@ -88,6 +111,7 @@ If `docs/ai-coding/` already exists:
 After running, report:
 
 - Resolved project root.
+- Focus scope used, if any.
 - Generated or updated files.
 - Existing AI docs discovered.
 - Important source facts used.
