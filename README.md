@@ -161,8 +161,12 @@ docs/superpowers/plans/
 graphify-out/GRAPH_REPORT.md
 graphify-out/graph.json
 docs/ai-coding/
+docs/**/*.md
 *.design.md
 *.plan.md
+*-design.md
+*-plan.md
+*prompt*.md
 ```
 
 Important: these documents are supporting context only. If they conflict with source code, source code wins.

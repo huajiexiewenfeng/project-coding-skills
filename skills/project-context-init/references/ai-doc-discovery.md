@@ -16,10 +16,17 @@ graphify-out/GRAPH_REPORT.md
 graphify-out/graph.json
 graphify-out/
 docs/ai-coding/
+docs/**/*.md
 *.design.md
 *.plan.md
+*-design.md
+*-plan.md
 *_design.md
 *_plan.md
+*prompt*.md
+**/*prompt*.md
+**/*design*.md
+**/*plan*.md
 *spec*.md
 *plan*.md
 ```
@@ -30,9 +37,10 @@ Read in this order:
 
 1. Source code, config, build files, tests.
 2. Project-maintained human docs.
-3. Superpower specs and plans.
-4. Graphify reports.
-5. Other AI-generated temporary docs.
+3. Project-maintained prompt, design, enum, API, and adapter docs under `docs/`.
+4. Superpower specs and plans.
+5. Graphify reports.
+6. Other AI-generated temporary docs.
 
 ## Graphify Rules
 

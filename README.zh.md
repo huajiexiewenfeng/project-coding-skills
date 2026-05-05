@@ -165,8 +165,12 @@ docs/superpowers/plans/
 graphify-out/GRAPH_REPORT.md
 graphify-out/graph.json
 docs/ai-coding/
+docs/**/*.md
 *.design.md
 *.plan.md
+*-design.md
+*-plan.md
+*prompt*.md
 ```
 
 注意：这些文档只是辅助上下文。如果它们和源码冲突，以源码为准。
