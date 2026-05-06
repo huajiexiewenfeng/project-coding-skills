@@ -136,6 +136,16 @@ By default, the current folder is the project root, source code is authoritative
 
 The skill generates `docs/ai-coding/` in that project.
 
+On first run, `project-context-init` creates the project-local context directory and starter templates:
+
+```text
+docs/ai-coding/
+docs/ai-coding/prompt-templates/feature-intake-template.md
+docs/ai-coding/prompt-templates/feature-intake-template.zh.md
+```
+
+New users do not need to know the skill's internal reference files. They only edit the generated project-local files when the skill asks for calibration.
+
 ### 2. Calibrate and approve the context
 
 `project-context-init` generates a draft. Before the team uses it for feature development, a team lead or architect should review and adjust the generated files.

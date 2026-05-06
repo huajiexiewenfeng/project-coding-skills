@@ -2,6 +2,62 @@
 
 Use these templates when generating `docs/ai-coding/` in the target project.
 
+## prompt-templates/feature-intake-template.md
+
+```markdown
+# Feature Intake Template
+
+Use this project-local template to collect feature inputs before implementation. Edit it for this project after architect review.
+
+## Required
+
+- Feature goal: `<what the user wants to build or change>`
+- Core workspace: `<primary module or path>`
+- Acceptance behavior: `<observable behavior or expected result>`
+
+## Optional
+
+- Reference area: `<supporting module, implementation, API, or document>`
+- Related docs: `<paths or URLs>`
+- Constraints: `<compatibility, dependency, API, encoding, performance, or rollout constraints>`
+- Verification: `<preferred compile, test, or manual check>`
+- Open questions: `<unknowns that should be clarified before coding>`
+
+## Rules
+
+- Empty fields are not requirements.
+- Source code and `docs/ai-coding/` remain the authority.
+- Project-specific fields may be added by the team lead or architect.
+```
+
+## prompt-templates/feature-intake-template.zh.md
+
+```markdown
+# 功能输入模板
+
+用于在实现前收集本项目的功能开发输入。架构师 review 后可以按项目情况调整。
+
+## 必填
+
+- 功能目标：`<用户希望新增或修改什么>`
+- 核心工作区：`<主要模块或路径>`
+- 验收行为：`<可观察的行为或预期结果>`
+
+## 可选
+
+- 参考区：`<辅助模块、实现、API 或文档>`
+- 相关文档：`<路径或 URL>`
+- 约束：`<兼容性、依赖、API、编码、性能或发布约束>`
+- 验证方式：`<建议的编译、测试或人工检查>`
+- 未确认问题：`<编码前需要澄清的问题>`
+
+## 规则
+
+- 空字段不是需求。
+- 源码和 `docs/ai-coding/` 仍然是权威来源。
+- 团队 leader 或架构师可以按项目情况增加字段。
+```
+
 ## project-profile.md
 
 ```markdown

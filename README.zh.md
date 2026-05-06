@@ -140,6 +140,16 @@ skill 会在当前业务项目中生成：
 docs/ai-coding/
 ```
 
+第一次运行时，`project-context-init` 会自动创建项目本地上下文目录和 starter 模板：
+
+```text
+docs/ai-coding/
+docs/ai-coding/prompt-templates/feature-intake-template.md
+docs/ai-coding/prompt-templates/feature-intake-template.zh.md
+```
+
+新用户不需要知道 skill 内部的参考文件在哪里。需要校准时，只修改生成到业务项目里的这些文件。
+
 ### 2. 校准并批准上下文
 
 `project-context-init` 生成的是草稿。团队正式使用它开发功能之前，需要由团队 leader 或架构师 review 并调整生成文件。

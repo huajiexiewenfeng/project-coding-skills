@@ -66,6 +66,7 @@ When a document is a prompt template:
 - Do not copy the full template into `feature-prompt-context.md`.
 - Ask the user or record a manual review item for the team lead or architect to decide how to handle the template.
 - If the template contains stable project constraints, verify those constraints against source code or human-maintained docs before promoting them.
+- If no template exists, rely on the bootstrap starter template under `docs/ai-coding/prompt-templates/`.
 
 ## Prompt Template Decision
 

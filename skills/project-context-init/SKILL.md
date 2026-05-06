@@ -27,6 +27,8 @@ Do not modify production code.
 Do not silently overwrite architect-edited docs/ai-coding files.
 Generated docs/ai-coding files are project-local shared context and should be committed to that project's Git repository.
 Generated docs/ai-coding files are drafts until a team lead or architect reviews and approves them.
+On first run, create the project-local context directory and starter templates before expecting the user to know their locations.
+Do not expose internal skill reference file names as required user knowledge.
 ```
 
 ## Required References
@@ -63,16 +65,39 @@ Defaults:
 ## Workflow
 
 1. Resolve the project root.
-2. Identify optional focus modules or scope paths.
-3. Build the source-code fact base from the project root, prioritizing focus paths when provided.
-4. Discover existing AI-generated documents inside the project root.
-5. Classify discovered documents as factual context, design notes, graph reports, or prompt templates.
-6. Compare factual AI-doc claims against source facts.
-7. Generate or merge `docs/ai-coding/` files.
-8. Preserve architect-edited content and write conflicts to `open-questions.md`.
-9. Mark prompt templates as requiring architect calibration before use in feature work.
-10. Mark the generated context as requiring team lead or architect review before team-wide use.
-11. Summarize generated files and architect review points.
+2. Bootstrap `docs/ai-coding/` and `docs/ai-coding/prompt-templates/` if missing.
+3. Create starter prompt templates if no project-approved template exists.
+4. Identify optional focus modules or scope paths.
+5. Build the source-code fact base from the project root, prioritizing focus paths when provided.
+6. Discover existing AI-generated documents inside the project root.
+7. Classify discovered documents as factual context, design notes, graph reports, or prompt templates.
+8. Compare factual AI-doc claims against source facts.
+9. Generate or merge `docs/ai-coding/` files.
+10. Preserve architect-edited content and write conflicts to `open-questions.md`.
+11. Mark prompt templates as requiring architect calibration before use in feature work.
+12. Mark the generated context as requiring team lead or architect review before team-wide use.
+13. Summarize generated files and architect review points.
+
+## First-Run Bootstrap
+
+If `docs/ai-coding/` does not exist, create it. Also create `docs/ai-coding/prompt-templates/`.
+
+Create starter templates when no project-approved prompt template exists:
+
+```text
+docs/ai-coding/prompt-templates/feature-intake-template.md
+docs/ai-coding/prompt-templates/feature-intake-template.zh.md
+```
+
+Use the templates in `references/output-templates.md`.
+
+After bootstrapping, guide the user in plain language:
+
+- Show the created files.
+- Explain that these are project-local files committed to the business project.
+- Ask the user or architect to edit the starter template if the default fields are not enough.
+- If the user already provided core workspace, reference area, and feature focus, continue initialization.
+- If critical information is missing, stop after bootstrap and ask the user to fill or confirm the template before continuing.
 
 ## Project Root Resolution
 
@@ -112,7 +137,7 @@ Do not scan every module equally when focus scope is provided. Summarize out-of-
 
 ## Output Contract
 
-Generate or update exactly these files under the resolved project root:
+Generate or update these files under the resolved project root:
 
 ```text
 docs/ai-coding/project-profile.md
@@ -121,6 +146,8 @@ docs/ai-coding/coding-rules.md
 docs/ai-coding/ai-context-sources.md
 docs/ai-coding/feature-prompt-context.md
 docs/ai-coding/open-questions.md
+docs/ai-coding/prompt-templates/feature-intake-template.md
+docs/ai-coding/prompt-templates/feature-intake-template.zh.md
 ```
 
 ## Merge Rules
