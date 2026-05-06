@@ -157,7 +157,7 @@ review 人需要：
 - 处理或明确保留 `open-questions.md` 中的问题
 - 修正 `coding-rules.md` 中的项目规则
 - 调整 `feature-prompt-context.md` 中的团队通用 prompt
-- 判断发现到的 prompt 模板是直接采用、补齐后采用、只采用稳定部分，还是跳过
+- 判断发现到的 prompt 模板是直接采用、补齐后采用、和默认模板合并、只采用稳定部分，还是跳过
 - 将批准后的 `docs/ai-coding/` 提交到业务项目 Git 仓库
 
 提交后，团队所有成员和 AI Agent 才使用同一份上下文。
@@ -172,6 +172,8 @@ review 人需要：
 
 skill 会加载当前项目自己的 `docs/ai-coding/`，并按照当前项目的编码风格和规则推进功能开发。
 
+`project-feature-dev` 内置一个默认功能输入模板。团队可以在 `docs/ai-coding/prompt-templates/` 中放批准后的项目模板，也可以在 `docs/prompt-template/` 中放候选模板。本次任务中用户显式指定的模板优先级最高。
+
 ## 已有 AI 文档
 
 `project-context-init` 可以读取已有 AI 生成上下文，例如：
@@ -182,6 +184,8 @@ docs/superpowers/plans/
 graphify-out/GRAPH_REPORT.md
 graphify-out/graph.json
 docs/ai-coding/
+docs/ai-coding/prompt-templates/
+docs/prompt-template/
 docs/**/*.md
 *.design.md
 *.plan.md
@@ -190,7 +194,7 @@ docs/**/*.md
 *prompt*.md
 ```
 
-注意：这些文档只是辅助上下文。如果它们和源码冲突，以源码为准。带占位符的 prompt 模板会被登记为功能开发输入模板，由用户或架构师决定直接采用、补齐后采用、只采用已验证的稳定部分，还是跳过。
+注意：这些文档只是辅助上下文。如果它们和源码冲突，以源码为准。带占位符的 prompt 模板会被登记为功能开发输入模板，由用户或架构师决定直接采用、补齐后采用、和默认模板合并、只采用已验证的稳定部分，还是跳过。
 
 ## 仓库结构
 

@@ -29,6 +29,7 @@ Read these reference files when using this skill:
 
 - `references/feature-workflow.md`
 - `references/final-response-template.md`
+- `references/default-feature-intake-template.md` when no project-approved or user-specified feature intake template exists.
 
 ## Workflow
 
@@ -37,13 +38,14 @@ Read these reference files when using this skill:
 3. Read `docs/ai-coding/feature-prompt-context.md`.
 4. Read `open-questions.md` and warn if project-rule questions appear unresolved.
 5. Read `project-profile.md`, `architecture-summary.md`, and `coding-rules.md` as needed.
-6. Understand the user's feature request.
-7. Read related source code in the same project root.
-8. Find similar implementation examples.
-9. Use brainstorming if the requirement or design is unclear.
-10. Implement according to project-local context.
-11. Run relevant verification.
-12. Summarize changes, verification, risks, and manual review points.
+6. Select the feature intake template using the template priority rules.
+7. Understand the user's feature request and collect required missing inputs.
+8. Read related source code in the same project root.
+9. Find similar implementation examples.
+10. Use brainstorming if the requirement or design is unclear.
+11. Implement according to project-local context.
+12. Run relevant verification.
+13. Summarize changes, verification, risks, and manual review points.
 
 ## Missing Context Behavior
 

@@ -16,6 +16,8 @@ graphify-out/GRAPH_REPORT.md
 graphify-out/graph.json
 graphify-out/
 docs/ai-coding/
+docs/ai-coding/prompt-templates/
+docs/prompt-template/
 docs/**/*.md
 *.design.md
 *.plan.md
@@ -51,7 +53,7 @@ Classify every discovered document before using it:
 | `factual-context` | architecture notes, API notes, enum design, module guides | Verify claims against source code before promoting to rules. |
 | `design-note` | specs, plans, ADR-like docs | Treat as intent or rationale; verify current implementation. |
 | `graph-report` | `graphify-out/GRAPH_REPORT.md` | Use as a navigation aid and confidence-marked supporting context. |
-| `prompt-template` | `*prompt*.md` with placeholders such as `<feature>`, `<branch>`, `<API URL>` | Register as an intake template. Do not treat placeholder text or per-feature examples as project facts. |
+| `prompt-template` | `docs/prompt-template/`, `docs/ai-coding/prompt-templates/`, `*prompt*.md` with placeholders such as `<feature>`, `<branch>`, `<API URL>` | Register as an intake template. Do not treat placeholder text or per-feature examples as project facts. |
 
 ## Prompt Template Rules
 
@@ -71,10 +73,11 @@ When a prompt template is discovered during `project-context-init`, present thes
 
 1. Adopt the template as the project's approved feature intake after architect review.
 2. Wait for the user to fill the placeholders before using the template.
-3. Adopt only stable, source-verified parts and skip placeholder or per-feature sections.
-4. Register the template in `ai-context-sources.md` but skip it for generated team context.
+3. Merge project-specific fields with the skill default feature intake template.
+4. Adopt only stable, source-verified parts and skip placeholder or per-feature sections.
+5. Register the template in `ai-context-sources.md` but skip it for generated team context.
 
-Default to option 3 when continuing without user input. Record the chosen option in `ai-context-sources.md` and write unresolved decisions to `open-questions.md`.
+Default to option 4 when continuing without user input. Record the chosen option in `ai-context-sources.md` and write unresolved decisions to `open-questions.md`.
 
 ## Graphify Rules
 

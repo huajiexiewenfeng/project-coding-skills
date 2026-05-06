@@ -153,7 +153,7 @@ The reviewer should:
 - resolve or explicitly keep items in `open-questions.md`
 - correct project-specific rules in `coding-rules.md`
 - refine the reusable team prompt in `feature-prompt-context.md`
-- decide whether discovered prompt templates should be adopted, filled first, partially used, or skipped
+- decide whether discovered prompt templates should be adopted, filled first, merged with the default template, partially used, or skipped
 - commit the approved `docs/ai-coding/` to the business project's Git repository
 
 After that commit, every team member and AI agent uses the same context.
@@ -168,6 +168,8 @@ Use develop:feature to implement this requirement: ...
 
 The skill loads only the current project's `docs/ai-coding/` and follows that project's coding style.
 
+`project-feature-dev` includes a default feature intake template. Project teams may override it with approved templates under `docs/ai-coding/prompt-templates/`, or provide candidate templates under `docs/prompt-template/`. User-specified templates for the current task have the highest priority.
+
 ## Existing AI Documents
 
 `project-context-init` can read existing AI-generated context, including:
@@ -178,6 +180,8 @@ docs/superpowers/plans/
 graphify-out/GRAPH_REPORT.md
 graphify-out/graph.json
 docs/ai-coding/
+docs/ai-coding/prompt-templates/
+docs/prompt-template/
 docs/**/*.md
 *.design.md
 *.plan.md
@@ -186,7 +190,7 @@ docs/**/*.md
 *prompt*.md
 ```
 
-Important: these documents are supporting context only. If they conflict with source code, source code wins. Prompt templates with placeholders are registered as feature-intake templates; the user or architect decides whether to adopt them, fill them first, use only stable verified parts, or skip them.
+Important: these documents are supporting context only. If they conflict with source code, source code wins. Prompt templates with placeholders are registered as feature-intake templates; the user or architect decides whether to adopt them, fill them first, merge them with the default template, use only stable verified parts, or skip them.
 
 ## Repository Layout
 

@@ -126,7 +126,7 @@ Prompt templates are feature-intake aids, not source-of-truth project facts.
 
 | Path | Intended Use | Required Placeholders | Handling Decision |
 |---|---|---|---|
-| `<path>` | `<when this template is useful>` | `<fields users must fill per feature>` | `<adopt | wait-for-filled-values | stable-parts-only | skip | unknown>` |
+| `<path>` | `<when this template is useful>` | `<fields users must fill per feature>` | `<adopt | wait-for-filled-values | merge-with-default | stable-parts-only | skip | unknown>` |
 
 ## Conflicts With Source Code
 
@@ -171,6 +171,13 @@ Prompt templates are feature-intake aids, not source-of-truth project facts.
 
 ## Feature Intake
 
+Template priority:
+
+1. User-specified template or section for the current task.
+2. Project-approved template under `docs/ai-coding/prompt-templates/`.
+3. Project candidate template under `docs/prompt-template/`, after user confirmation.
+4. Skill default template.
+
 If this project has an approved prompt template, collect these values before implementation:
 
 - `<field name>`: `<why it is needed>`
@@ -196,7 +203,7 @@ Always include:
 ## Needs Architect Review
 
 - `<question>`
-- `<prompt template path>`: choose whether to adopt, wait for filled placeholders, use stable verified parts only, or skip this template.
+- `<prompt template path>`: choose whether to adopt, wait for filled placeholders, merge with the skill default template, use stable verified parts only, or skip this template.
 
 ## Source vs AI Doc Conflicts
 
