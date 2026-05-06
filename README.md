@@ -146,6 +146,8 @@ docs/ai-coding/prompt-templates/feature-intake-template.zh.md
 
 New users do not need to know the skill's internal reference files. They only edit the generated project-local files when the skill asks for calibration.
 
+If `docs/ai-coding/` already exists, `develop:init` runs in update mode. It reads the existing context first, preserves reviewed project guidance and prompt templates, then merges newly observed source facts instead of starting over.
+
 ### 2. Calibrate and approve the context
 
 `project-context-init` generates a draft. Before the team uses it for feature development, a team lead or architect should review and adjust the generated files.

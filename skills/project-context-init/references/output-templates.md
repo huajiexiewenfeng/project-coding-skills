@@ -63,6 +63,12 @@ Use this project-local template to collect feature inputs before implementation.
 ```markdown
 # Project Profile
 
+## Context Status
+
+- Mode: `<first-run bootstrap | update/refresh>`
+- Last updated: `<date or unknown>`
+- Review status: `<draft | architect-reviewed | unknown>`
+
 ## Project Root
 
 - Path: `<resolved project root>`

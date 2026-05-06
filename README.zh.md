@@ -150,6 +150,8 @@ docs/ai-coding/prompt-templates/feature-intake-template.zh.md
 
 新用户不需要知道 skill 内部的参考文件在哪里。需要校准时，只修改生成到业务项目里的这些文件。
 
+如果 `docs/ai-coding/` 已经存在，`develop:init` 会进入 update 模式。它会先读取已有上下文，保留已经 review 过的项目规则和 prompt 模板，再增量合并新观察到的源码事实，而不是从头重建。
+
 ### 2. 校准并批准上下文
 
 `project-context-init` 生成的是草稿。团队正式使用它开发功能之前，需要由团队 leader 或架构师 review 并调整生成文件。

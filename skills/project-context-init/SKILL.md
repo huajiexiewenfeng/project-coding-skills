@@ -29,6 +29,7 @@ Generated docs/ai-coding files are project-local shared context and should be co
 Generated docs/ai-coding files are drafts until a team lead or architect reviews and approves them.
 On first run, create the project-local context directory and starter templates before expecting the user to know their locations.
 Do not expose internal skill reference file names as required user knowledge.
+If docs/ai-coding already exists, treat develop:init as an update/refresh, not a fresh initialization.
 ```
 
 ## Required References
@@ -65,18 +66,21 @@ Defaults:
 ## Workflow
 
 1. Resolve the project root.
-2. Bootstrap `docs/ai-coding/` and `docs/ai-coding/prompt-templates/` if missing.
-3. Create starter prompt templates if no project-approved template exists.
-4. Identify optional focus modules or scope paths.
-5. Build the source-code fact base from the project root, prioritizing focus paths when provided.
-6. Discover existing AI-generated documents inside the project root.
-7. Classify discovered documents as factual context, design notes, graph reports, or prompt templates.
-8. Compare factual AI-doc claims against source facts.
-9. Generate or merge `docs/ai-coding/` files.
-10. Preserve architect-edited content and write conflicts to `open-questions.md`.
-11. Mark prompt templates as requiring architect calibration before use in feature work.
-12. Mark the generated context as requiring team lead or architect review before team-wide use.
-13. Summarize generated files and architect review points.
+2. Detect mode:
+   - first-run bootstrap when `docs/ai-coding/` is missing.
+   - update/refresh when `docs/ai-coding/` already exists.
+3. For first-run bootstrap, create the project-local context directory and starter prompt templates.
+4. For update/refresh, read existing `docs/ai-coding/` first and preserve reviewed content.
+5. Identify optional focus modules or scope paths.
+6. Build the source-code fact base from the project root, prioritizing focus paths when provided.
+7. Discover existing AI-generated documents inside the project root.
+8. Classify discovered documents as factual context, design notes, graph reports, or prompt templates.
+9. Compare factual AI-doc claims against source facts.
+10. Generate or merge `docs/ai-coding/` files.
+11. Preserve architect-edited content and write conflicts to `open-questions.md`.
+12. Mark prompt templates as requiring architect calibration before use in feature work.
+13. Mark the generated context as requiring team lead or architect review before team-wide use.
+14. Summarize generated files and architect review points.
 
 ## First-Run Bootstrap
 
@@ -98,6 +102,27 @@ After bootstrapping, guide the user in plain language:
 - Ask the user or architect to edit the starter template if the default fields are not enough.
 - If the user already provided core workspace, reference area, and feature focus, continue initialization.
 - If critical information is missing, stop after bootstrap and ask the user to fill or confirm the template before continuing.
+
+## Update/Refresh Mode
+
+If `docs/ai-coding/` already exists, do not bootstrap from scratch.
+
+Before scanning source:
+
+- Read all existing `docs/ai-coding/*.md`.
+- Detect whether `coding-rules.md`, `feature-prompt-context.md`, or prompt templates contain reviewed project guidance.
+- Treat existing reviewed guidance as user/architect-authored content.
+
+During update:
+
+- Append or merge newly observed source facts into existing documents.
+- Keep stable reviewed rules unless source evidence clearly contradicts them.
+- If source evidence contradicts existing project guidance, keep the existing text and record the conflict in `open-questions.md`.
+- Do not recreate starter templates if `docs/ai-coding/prompt-templates/` already contains project templates.
+- If starter templates exist unchanged, they may be updated only when the built-in starter template changed and no project-specific edits are detected.
+- If unsure whether a file was architect-edited, preserve it and add a review note.
+
+Final response must say whether the run was `first-run bootstrap` or `update/refresh`.
 
 ## Project Root Resolution
 
@@ -159,6 +184,8 @@ If `docs/ai-coding/` already exists:
 - Add newly observed source facts in clearly marked sections.
 - Put conflicts and uncertain claims in `open-questions.md`.
 - Do not silently replace `coding-rules.md` or `feature-prompt-context.md`.
+- Do not reset generated files back to blank templates.
+- Do not overwrite project-approved prompt templates.
 
 ## Final Response
 
