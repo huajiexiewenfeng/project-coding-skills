@@ -65,6 +65,15 @@ When focus paths are provided:
 - Summarize non-focused modules as out of scope unless they define shared APIs, DTOs, enums, clients, configuration, or tests used by the focused modules.
 - Do not infer global project rules from non-focused modules.
 
+## Reference Areas
+
+When the user provides reference areas:
+
+- Use them to understand behavior, DTOs, enums, API semantics, errors, tests, or existing implementation patterns.
+- Do not treat them as the main implementation target.
+- Do not infer that the core workspace may directly depend on the reference area unless source code already shows that dependency.
+- Record reference areas separately from core workspace paths in `project-profile.md` or `architecture-summary.md`.
+
 ## Evidence Rules
 
 When writing project facts:

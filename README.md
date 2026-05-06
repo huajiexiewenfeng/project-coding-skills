@@ -118,6 +118,22 @@ In a business project repository:
 Use develop:init to initialize this project's AI coding context.
 ```
 
+For daily use, keep the prompt short and provide only the project-specific scope:
+
+```text
+Use develop:init for the current project.
+Core workspace:
+<module-or-path>
+
+Reference area:
+<module-or-path>
+
+Optional context:
+<docs, prompt template, or feature focus>
+```
+
+By default, the current folder is the project root, source code is authoritative, only `docs/ai-coding/` is generated or updated, and production code is not modified.
+
 The skill generates `docs/ai-coding/` in that project.
 
 ### 2. Calibrate and approve the context
@@ -137,7 +153,7 @@ The reviewer should:
 - resolve or explicitly keep items in `open-questions.md`
 - correct project-specific rules in `coding-rules.md`
 - refine the reusable team prompt in `feature-prompt-context.md`
-- decide whether discovered prompt templates should become approved per-feature intake templates
+- decide whether discovered prompt templates should be adopted, filled first, partially used, or skipped
 - commit the approved `docs/ai-coding/` to the business project's Git repository
 
 After that commit, every team member and AI agent uses the same context.
@@ -170,7 +186,7 @@ docs/**/*.md
 *prompt*.md
 ```
 
-Important: these documents are supporting context only. If they conflict with source code, source code wins. Prompt templates with placeholders are registered as feature-intake templates; they are not treated as project facts until reviewed and calibrated.
+Important: these documents are supporting context only. If they conflict with source code, source code wins. Prompt templates with placeholders are registered as feature-intake templates; the user or architect decides whether to adopt them, fill them first, use only stable verified parts, or skip them.
 
 ## Repository Layout
 

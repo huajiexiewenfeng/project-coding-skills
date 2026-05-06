@@ -19,6 +19,7 @@ Existing AI-generated docs are supporting context, not authority.
 Prompt templates with placeholders are feature-intake templates, not project facts.
 When AI docs conflict with source code, source code wins.
 Always resolve context from the current working directory or an explicitly specified project root.
+When no project path is provided, treat the current working directory as the project root.
 When the user provides focus modules or scope paths, keep project root broad enough for shared docs but limit source sampling to those paths.
 Never reuse docs/ai-coding from another project.
 Never inherit coding rules from previous conversations unless the user explicitly points to the same project root.
@@ -35,6 +36,29 @@ Read these reference files before generating output:
 - `references/source-scan-guide.md`
 - `references/ai-doc-discovery.md`
 - `references/output-templates.md`
+
+## Short Prompt Contract
+
+Accept short daily prompts. Do not require the user to repeat default rules.
+
+Typical input:
+
+```text
+Use develop:init for the current project.
+Core workspace: <module-or-path>
+Reference area: <module-or-path>
+Optional context: <docs or feature focus>
+```
+
+Defaults:
+
+- Current working directory is the project root unless the user provides another path.
+- Source code, configuration, build files, and tests are the authority.
+- Generate or update only `docs/ai-coding/`.
+- Do not modify production code.
+- Treat core workspace paths as primary source-scan scope.
+- Treat reference area paths as supporting context only unless source evidence shows direct dependencies.
+- Treat prompt templates as feature-intake candidates and use the conservative prompt-template decision rules.
 
 ## Workflow
 

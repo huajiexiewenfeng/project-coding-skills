@@ -42,6 +42,12 @@ If `project-profile.md` or `architecture-summary.md` declares focus modules, use
 
 If `feature-prompt-context.md` declares an approved feature intake template, collect the required per-feature values before implementation. Examples include API document URL, target branch, feature type, target capability, and extra constraints. Do not treat unfilled placeholders as requirements.
 
+If a required field is missing, ask whether to:
+
+1. Fill the missing values now.
+2. Continue using only stable project context.
+3. Skip the template for this feature.
+
 ## Context Approval Check
 
 Before relying on project-local context:

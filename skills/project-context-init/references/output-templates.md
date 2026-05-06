@@ -11,6 +11,11 @@ Use these templates when generating `docs/ai-coding/` in the target project.
 
 - Path: `<resolved project root>`
 
+## Scope
+
+- Core workspace: `<primary source-scan paths or current project>`
+- Reference area: `<supporting reference paths or none>`
+
 ## Build
 
 - Build tool: `<Maven | Gradle | unknown>`
@@ -119,9 +124,9 @@ Existing AI-generated documents are supporting context, not authority.
 
 Prompt templates are feature-intake aids, not source-of-truth project facts.
 
-| Path | Intended Use | Required Placeholders | Architect Decision |
+| Path | Intended Use | Required Placeholders | Handling Decision |
 |---|---|---|---|
-| `<path>` | `<when this template is useful>` | `<fields users must fill per feature>` | `<approve / adapt / ignore / unknown>` |
+| `<path>` | `<when this template is useful>` | `<fields users must fill per feature>` | `<adopt | wait-for-filled-values | stable-parts-only | skip | unknown>` |
 
 ## Conflicts With Source Code
 
@@ -191,7 +196,7 @@ Always include:
 ## Needs Architect Review
 
 - `<question>`
-- `<prompt template path>`: decide whether it should become the approved per-feature intake template.
+- `<prompt template path>`: choose whether to adopt, wait for filled placeholders, use stable verified parts only, or skip this template.
 
 ## Source vs AI Doc Conflicts
 

@@ -62,8 +62,19 @@ When a document is a prompt template:
 - Do not extract project coding rules from placeholder sections.
 - Do not put per-feature variables into `coding-rules.md`.
 - Do not copy the full template into `feature-prompt-context.md`.
-- Add a manual review item asking the team lead or architect to decide which fields become the approved feature intake.
+- Ask the user or record a manual review item for the team lead or architect to decide how to handle the template.
 - If the template contains stable project constraints, verify those constraints against source code or human-maintained docs before promoting them.
+
+## Prompt Template Decision
+
+When a prompt template is discovered during `project-context-init`, present these options unless the user already gave a clear preference:
+
+1. Adopt the template as the project's approved feature intake after architect review.
+2. Wait for the user to fill the placeholders before using the template.
+3. Adopt only stable, source-verified parts and skip placeholder or per-feature sections.
+4. Register the template in `ai-context-sources.md` but skip it for generated team context.
+
+Default to option 3 when continuing without user input. Record the chosen option in `ai-context-sources.md` and write unresolved decisions to `open-questions.md`.
 
 ## Graphify Rules
 
