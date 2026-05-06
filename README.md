@@ -136,6 +136,8 @@ By default, the current folder is the project root, source code is authoritative
 
 The skill generates `docs/ai-coding/` in that project.
 
+Generated document content follows the prompt language. For example, a Chinese `develop:init` prompt should produce Chinese headings, notes, and review items while keeping file names and code identifiers unchanged.
+
 On first run, `project-context-init` creates the project-local context directory and starter templates:
 
 ```text

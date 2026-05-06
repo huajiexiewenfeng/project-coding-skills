@@ -30,6 +30,7 @@ Generated docs/ai-coding files are drafts until a team lead or architect reviews
 On first run, create the project-local context directory and starter templates before expecting the user to know their locations.
 Do not expose internal skill reference file names as required user knowledge.
 If docs/ai-coding already exists, treat develop:init as an update/refresh, not a fresh initialization.
+Generate project-local docs in the user's prompt language unless existing docs already establish another project language.
 ```
 
 ## Required References
@@ -58,10 +59,33 @@ Defaults:
 - Current working directory is the project root unless the user provides another path.
 - Source code, configuration, build files, and tests are the authority.
 - Generate or update only `docs/ai-coding/`.
+- Use the user's current language for generated document headings, prose, tables, and review notes.
 - Do not modify production code.
 - Treat core workspace paths as primary source-scan scope.
 - Treat reference area paths as supporting context only unless source evidence shows direct dependencies.
 - Treat prompt templates as feature-intake candidates and use the conservative prompt-template decision rules.
+
+## Output Language
+
+Choose the output language before writing files:
+
+1. If the user explicitly requests a language, use it.
+2. Otherwise use the language of the current `develop:init` prompt.
+3. In update/refresh mode, preserve the language already used by existing `docs/ai-coding/` files unless the user asks to switch.
+4. If mixed languages exist, prefer the language used by `feature-prompt-context.md` or `coding-rules.md`.
+
+Keep file names and code identifiers stable in English:
+
+```text
+docs/ai-coding/project-profile.md
+docs/ai-coding/architecture-summary.md
+docs/ai-coding/coding-rules.md
+docs/ai-coding/ai-context-sources.md
+docs/ai-coding/feature-prompt-context.md
+docs/ai-coding/open-questions.md
+```
+
+Translate headings, descriptions, table labels, review notes, and generated prose into the selected language. Do not translate Java package names, class names, method names, command lines, paths, API names, or enum values.
 
 ## Workflow
 
@@ -102,6 +126,7 @@ After bootstrapping, guide the user in plain language:
 - Ask the user or architect to edit the starter template if the default fields are not enough.
 - If the user already provided core workspace, reference area, and feature focus, continue initialization.
 - If critical information is missing, stop after bootstrap and ask the user to fill or confirm the template before continuing.
+- Use the selected output language for all generated starter files and guidance.
 
 ## Update/Refresh Mode
 

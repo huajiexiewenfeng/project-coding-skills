@@ -140,6 +140,8 @@ skill 会在当前业务项目中生成：
 docs/ai-coding/
 ```
 
+生成文档的内容会跟随 prompt 语言。中文 `develop:init` 会生成中文标题、说明和 review 项，但文件名、代码标识符、路径、命令保持不变。
+
 第一次运行时，`project-context-init` 会自动创建项目本地上下文目录和 starter 模板：
 
 ```text

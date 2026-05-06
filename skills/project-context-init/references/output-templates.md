@@ -2,6 +2,27 @@
 
 Use these templates when generating `docs/ai-coding/` in the target project.
 
+## Language Rendering Rules
+
+These templates define structure, not fixed English copy.
+
+- Keep file names unchanged.
+- Render headings, prose, table headers, placeholders, and review notes in the selected output language.
+- Use Chinese headings and labels when the user prompt is Chinese.
+- Preserve existing document language during update/refresh unless the user asks to switch.
+- Do not translate paths, commands, package names, class names, method names, enum values, API names, or dependency names.
+
+Suggested Chinese title mapping:
+
+| File | English Title | Chinese Title |
+|---|---|---|
+| `project-profile.md` | Project Profile | 项目画像 |
+| `architecture-summary.md` | Architecture Summary | 架构摘要 |
+| `coding-rules.md` | Coding Rules | 编码规则 |
+| `ai-context-sources.md` | AI Context Sources | AI 上下文来源 |
+| `feature-prompt-context.md` | Feature Prompt Context | 功能开发上下文 |
+| `open-questions.md` | Open Questions | 待确认问题 |
+
 ## prompt-templates/feature-intake-template.md
 
 ```markdown
