@@ -29,7 +29,7 @@ Read these reference files when using this skill:
 
 - `references/feature-workflow.md`
 - `references/final-response-template.md`
-- `references/default-feature-intake-template.md` when no project-approved or user-specified feature intake template exists.
+- `references/default-feature-intake-template.md` or `references/default-feature-intake-template.zh.md` when no project-approved or user-specified feature intake template exists.
 
 ## Workflow
 

@@ -210,6 +210,8 @@ skills/
   project-feature-dev/
     SKILL.md
     references/
+      default-feature-intake-template.md
+      default-feature-intake-template.zh.md
       feature-workflow.md
       final-response-template.md
 ```

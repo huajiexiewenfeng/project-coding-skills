@@ -47,7 +47,9 @@ Select a feature intake template in this priority order:
 1. User-specified template or section for the current task.
 2. Project-approved template under `docs/ai-coding/prompt-templates/` or declared in `feature-prompt-context.md`.
 3. Project candidate template under `docs/prompt-template/` or other user-provided project docs, after asking whether to use it.
-4. Skill default template: `references/default-feature-intake-template.md`.
+4. Skill default template: `references/default-feature-intake-template.md` or `references/default-feature-intake-template.zh.md`.
+
+Choose the default template language from the user's current language. Use the Chinese default template for Chinese conversations.
 
 When a project candidate template is discovered but not approved, ask whether to:
 
