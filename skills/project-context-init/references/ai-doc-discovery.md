@@ -16,7 +16,8 @@ graphify-out/GRAPH_REPORT.md
 graphify-out/graph.json
 graphify-out/
 docs/ai-coding/
-docs/ai-coding/prompt-templates/
+docs/ai-coding/*/
+docs/ai-coding/*/prompt-templates/
 docs/prompt-template/
 docs/**/*.md
 *.design.md
@@ -53,7 +54,7 @@ Classify every discovered document before using it:
 | `factual-context` | architecture notes, API notes, enum design, module guides | Verify claims against source code before promoting to rules. |
 | `design-note` | specs, plans, ADR-like docs | Treat as intent or rationale; verify current implementation. |
 | `graph-report` | `graphify-out/GRAPH_REPORT.md` | Use as a navigation aid and confidence-marked supporting context. |
-| `prompt-template` | `docs/prompt-template/`, `docs/ai-coding/prompt-templates/`, `*prompt*.md` with placeholders such as `<feature>`, `<branch>`, `<API URL>` | Register as an intake template. Do not treat placeholder text or per-feature examples as project facts. |
+| `prompt-template` | `docs/prompt-template/`, `docs/ai-coding/<context-scope>/prompt-templates/`, `*prompt*.md` with placeholders such as `<feature>`, `<branch>`, `<API URL>` | Register as an intake template. Do not treat placeholder text or per-feature examples as project facts. |
 
 ## Prompt Template Rules
 
@@ -66,7 +67,7 @@ When a document is a prompt template:
 - Do not copy the full template into `feature-prompt-context.md`.
 - Ask the user or record a manual review item for the team lead or architect to decide how to handle the template.
 - If the template contains stable project constraints, verify those constraints against source code or human-maintained docs before promoting them.
-- If no template exists, rely on the bootstrap starter template under `docs/ai-coding/prompt-templates/`.
+- If no template exists, rely on the bootstrap starter template under `docs/ai-coding/<context-scope>/prompt-templates/`.
 
 ## Prompt Template Decision
 

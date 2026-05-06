@@ -44,12 +44,14 @@ It scans the current project, treats source code as the source of truth, reads e
 
 ```text
 docs/ai-coding/
-  project-profile.md
-  architecture-summary.md
-  coding-rules.md
-  ai-context-sources.md
-  feature-prompt-context.md
-  open-questions.md
+  contexts.md
+  <context-scope>/
+    project-profile.md
+    architecture-summary.md
+    coding-rules.md
+    ai-context-sources.md
+    feature-prompt-context.md
+    open-questions.md
 ```
 
 These files belong to the target business project, not this skill repository.
@@ -70,7 +72,9 @@ It does not replace brainstorming or design workflows. It loads project context 
 Source code is the source of truth.
 AI-generated docs are context, not authority.
 Each project owns its own docs/ai-coding/.
+Each module or bounded context may own its own docs/ai-coding/<context-scope>/.
 Never reuse context from another project.
+Never apply one scoped context to another module unless explicitly selected.
 Commit docs/ai-coding/ to the target project's Git repository.
 Use project-feature-dev after the team lead or architect has reviewed the generated context.
 ```
@@ -122,6 +126,9 @@ For daily use, keep the prompt short and provide only the project-specific scope
 
 ```text
 Use develop:init for the current project.
+Context scope:
+<module-or-domain-name>
+
 Core workspace:
 <module-or-path>
 
@@ -134,21 +141,40 @@ Optional context:
 
 By default, the current folder is the project root, source code is authoritative, only `docs/ai-coding/` is generated or updated, and production code is not modified.
 
-The skill generates `docs/ai-coding/` in that project.
+The skill keeps `docs/ai-coding/` as the project registry and writes module/domain-specific context under `docs/ai-coding/<context-scope>/`.
+
+Example for a large repository:
+
+```text
+Use develop:init for the current project.
+Context scope: dji-adapter
+Core workspace: dji-dock3-adapter
+Reference area: dock-api
+```
+
+This creates:
+
+```text
+docs/ai-coding/contexts.md
+docs/ai-coding/dji-adapter/
+```
 
 Generated document content follows the prompt language. For example, a Chinese `develop:init` prompt should produce Chinese headings, notes, and review items while keeping file names and code identifiers unchanged.
 
 On first run, `project-context-init` creates the project-local context directory and starter templates:
 
 ```text
-docs/ai-coding/
-docs/ai-coding/prompt-templates/feature-intake-template.md
-docs/ai-coding/prompt-templates/feature-intake-template.zh.md
+docs/ai-coding/contexts.md
+docs/ai-coding/<context-scope>/
+docs/ai-coding/<context-scope>/prompt-templates/feature-intake-template.md
+docs/ai-coding/<context-scope>/prompt-templates/feature-intake-template.zh.md
 ```
 
 New users do not need to know the skill's internal reference files. They only edit the generated project-local files when the skill asks for calibration.
 
 If `docs/ai-coding/` already exists, `develop:init` runs in update mode. It reads the existing context first, preserves reviewed project guidance and prompt templates, then merges newly observed source facts instead of starting over.
+
+If old unscoped files already exist directly under `docs/ai-coding/`, the skill treats them as legacy context and asks before migrating them into a scoped directory.
 
 ### 2. Calibrate and approve the context
 
@@ -157,9 +183,9 @@ If `docs/ai-coding/` already exists, `develop:init` runs in update mode. It read
 Review especially:
 
 ```text
-docs/ai-coding/open-questions.md
-docs/ai-coding/coding-rules.md
-docs/ai-coding/feature-prompt-context.md
+docs/ai-coding/<context-scope>/open-questions.md
+docs/ai-coding/<context-scope>/coding-rules.md
+docs/ai-coding/<context-scope>/feature-prompt-context.md
 ```
 
 The reviewer should:
@@ -180,9 +206,9 @@ In the same business project:
 Use develop:feature to implement this requirement: ...
 ```
 
-The skill loads only the current project's `docs/ai-coding/` and follows that project's coding style.
+The skill loads only the selected context under the current project's `docs/ai-coding/<context-scope>/` and follows that context's coding style. If multiple contexts exist, it asks which one applies.
 
-`project-feature-dev` includes a default feature intake template. Project teams may override it with approved templates under `docs/ai-coding/prompt-templates/`, or provide candidate templates under `docs/prompt-template/`. User-specified templates for the current task have the highest priority.
+`project-feature-dev` includes a default feature intake template. Project teams may override it with approved templates under `docs/ai-coding/<context-scope>/prompt-templates/`, or provide candidate templates under `docs/prompt-template/`. User-specified templates for the current task have the highest priority.
 
 ## Existing AI Documents
 
@@ -197,6 +223,8 @@ docs/ai-coding/
 docs/ai-coding/prompt-templates/
 docs/prompt-template/
 docs/**/*.md
+docs/ai-coding/*/
+docs/ai-coding/*/prompt-templates/
 *.design.md
 *.plan.md
 *-design.md

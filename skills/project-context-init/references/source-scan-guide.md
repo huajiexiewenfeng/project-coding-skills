@@ -53,7 +53,7 @@ Project root is used for:
 - root build files
 - shared `docs/`
 - existing AI-generated documents
-- generated `docs/ai-coding/`
+- generated `docs/ai-coding/` registry
 
 Focus scope is used for detailed source sampling.
 
@@ -64,6 +64,16 @@ When focus paths are provided:
 - Record focus paths in `project-profile.md`.
 - Summarize non-focused modules as out of scope unless they define shared APIs, DTOs, enums, clients, configuration, or tests used by the focused modules.
 - Do not infer global project rules from non-focused modules.
+
+## Context Scope
+
+When the repository has multiple modules or product areas, write context for the selected scope instead of the whole repository.
+
+- Record the selected context scope in `project-profile.md`.
+- Generate scoped context under `docs/ai-coding/<context-scope>/`.
+- Keep root `docs/ai-coding/contexts.md` as an index of available contexts.
+- Do not infer repository-wide coding rules from a scoped scan.
+- If the user provides an existing docs path such as `docs/dji-adapter/...`, consider that path's domain folder as a candidate context scope.
 
 ## Reference Areas
 
@@ -90,7 +100,7 @@ If multiple modules exist:
 - Identify the root build file.
 - List modules in `project-profile.md`.
 - Summarize module responsibilities in `architecture-summary.md`.
-- Keep generated `docs/ai-coding/` at the project root unless the user explicitly asks for module-local context.
+- Keep generated context at the project root under `docs/ai-coding/<context-scope>/` when the user provides a focus module, domain, adapter, bounded context, or module-local purpose.
 - If focus modules were provided, mark them as the primary coding context.
 
 ## Commands

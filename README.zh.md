@@ -44,12 +44,14 @@ skills/
 
 ```text
 docs/ai-coding/
-  project-profile.md
-  architecture-summary.md
-  coding-rules.md
-  ai-context-sources.md
-  feature-prompt-context.md
-  open-questions.md
+  contexts.md
+  <context-scope>/
+    project-profile.md
+    architecture-summary.md
+    coding-rules.md
+    ai-context-sources.md
+    feature-prompt-context.md
+    open-questions.md
 ```
 
 这些文件属于目标业务项目，不属于本 skill 仓库。
@@ -70,7 +72,9 @@ docs/ai-coding/
 源码是第一事实来源。
 AI 生成文档只是上下文，不是权威。
 每个项目拥有自己的 docs/ai-coding/。
+每个模块或业务上下文可以拥有自己的 docs/ai-coding/<context-scope>/。
 禁止复用其他项目的上下文。
+禁止把一个 scoped context 的规则自动套到另一个模块。
 docs/ai-coding/ 应提交到目标项目的 Git 仓库。
 应在团队 leader 或架构师校准后，再使用 project-feature-dev 进行功能开发。
 ```
@@ -122,6 +126,9 @@ skills/
 
 ```text
 使用 develop:init 初始化当前项目。
+上下文名称：
+<模块或领域名称>
+
 核心工作区：
 <模块或路径>
 
@@ -134,10 +141,22 @@ skills/
 
 默认情况下，当前文件夹就是项目根目录，源码是第一事实来源，skill 只生成或更新 `docs/ai-coding/`，不会修改业务代码。
 
-skill 会在当前业务项目中生成：
+skill 会把 `docs/ai-coding/` 作为项目级索引，把模块或领域专属上下文写到 `docs/ai-coding/<context-scope>/`。
+
+大仓库示例：
 
 ```text
-docs/ai-coding/
+使用 develop:init 初始化当前项目。
+上下文名称：dji-adapter
+核心工作区：dji-dock3-adapter
+参考区：dock-api
+```
+
+生成位置：
+
+```text
+docs/ai-coding/contexts.md
+docs/ai-coding/dji-adapter/
 ```
 
 生成文档的内容会跟随 prompt 语言。中文 `develop:init` 会生成中文标题、说明和 review 项，但文件名、代码标识符、路径、命令保持不变。
@@ -145,14 +164,17 @@ docs/ai-coding/
 第一次运行时，`project-context-init` 会自动创建项目本地上下文目录和 starter 模板：
 
 ```text
-docs/ai-coding/
-docs/ai-coding/prompt-templates/feature-intake-template.md
-docs/ai-coding/prompt-templates/feature-intake-template.zh.md
+docs/ai-coding/contexts.md
+docs/ai-coding/<context-scope>/
+docs/ai-coding/<context-scope>/prompt-templates/feature-intake-template.md
+docs/ai-coding/<context-scope>/prompt-templates/feature-intake-template.zh.md
 ```
 
 新用户不需要知道 skill 内部的参考文件在哪里。需要校准时，只修改生成到业务项目里的这些文件。
 
 如果 `docs/ai-coding/` 已经存在，`develop:init` 会进入 update 模式。它会先读取已有上下文，保留已经 review 过的项目规则和 prompt 模板，再增量合并新观察到的源码事实，而不是从头重建。
+
+如果旧版本已经在 `docs/ai-coding/` 根目录下生成了未分 scope 的文件，skill 会把它们当作 legacy context，不会静默移动或删除，会先询问是否迁移到 `docs/ai-coding/<context-scope>/`。
 
 ### 2. 校准并批准上下文
 
@@ -161,9 +183,9 @@ docs/ai-coding/prompt-templates/feature-intake-template.zh.md
 重点 review：
 
 ```text
-docs/ai-coding/open-questions.md
-docs/ai-coding/coding-rules.md
-docs/ai-coding/feature-prompt-context.md
+docs/ai-coding/<context-scope>/open-questions.md
+docs/ai-coding/<context-scope>/coding-rules.md
+docs/ai-coding/<context-scope>/feature-prompt-context.md
 ```
 
 review 人需要：
@@ -184,9 +206,9 @@ review 人需要：
 使用 develop:feature 帮我实现这个需求：...
 ```
 
-skill 会加载当前项目自己的 `docs/ai-coding/`，并按照当前项目的编码风格和规则推进功能开发。
+skill 会加载当前项目中被选中的 `docs/ai-coding/<context-scope>/`，并按照这个上下文的编码风格和规则推进功能开发。如果同一个仓库里有多个 context，它会先确认应该使用哪一个。
 
-`project-feature-dev` 内置一个默认功能输入模板。团队可以在 `docs/ai-coding/prompt-templates/` 中放批准后的项目模板，也可以在 `docs/prompt-template/` 中放候选模板。本次任务中用户显式指定的模板优先级最高。
+`project-feature-dev` 内置一个默认功能输入模板。团队可以在 `docs/ai-coding/<context-scope>/prompt-templates/` 中放批准后的项目模板，也可以在 `docs/prompt-template/` 中放候选模板。本次任务中用户显式指定的模板优先级最高。
 
 ## 已有 AI 文档
 
@@ -201,6 +223,8 @@ docs/ai-coding/
 docs/ai-coding/prompt-templates/
 docs/prompt-template/
 docs/**/*.md
+docs/ai-coding/*/
+docs/ai-coding/*/prompt-templates/
 *.design.md
 *.plan.md
 *-design.md

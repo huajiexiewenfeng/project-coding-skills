@@ -20,7 +20,9 @@ Never reuse docs/ai-coding from another project.
 Never apply rules from previous conversations to a different project.
 Source code wins over docs/ai-coding when they conflict.
 If docs/ai-coding does not exist, recommend project-context-init.
-If docs/ai-coding appears unreviewed or open-questions.md contains unresolved project-rule questions, warn before relying on it.
+When docs/ai-coding contains scoped contexts, select the matching context directory before reading rules.
+Never apply one scoped context to another module unless the user explicitly selects it.
+If the selected context appears unreviewed or open-questions.md contains unresolved project-rule questions, warn before relying on it.
 ```
 
 ## Required References
@@ -35,17 +37,22 @@ Read these reference files when using this skill:
 
 1. Resolve the project root.
 2. Check for `docs/ai-coding/` in that project root.
-3. Read `docs/ai-coding/feature-prompt-context.md`.
-4. Read `open-questions.md` and warn if project-rule questions appear unresolved.
-5. Read `project-profile.md`, `architecture-summary.md`, and `coding-rules.md` as needed.
-6. Select the feature intake template using the template priority rules.
-7. Understand the user's feature request and collect required missing inputs.
-8. Read related source code in the same project root.
-9. Find similar implementation examples.
-10. Use brainstorming if the requirement or design is unclear.
-11. Implement according to project-local context.
-12. Run relevant verification.
-13. Summarize changes, verification, risks, and manual review points.
+3. Select the context directory:
+   - user-specified context path/name
+   - matching `docs/ai-coding/<context-scope>/`
+   - the only scoped context if exactly one exists
+   - legacy root `docs/ai-coding/feature-prompt-context.md`
+4. Read the selected context's `feature-prompt-context.md`.
+5. Read the selected context's `open-questions.md` and warn if project-rule questions appear unresolved.
+6. Read `project-profile.md`, `architecture-summary.md`, and `coding-rules.md` from the selected context as needed.
+7. Select the feature intake template using the template priority rules.
+8. Understand the user's feature request and collect required missing inputs.
+9. Read related source code in the same project root, prioritizing the selected context's core workspace.
+10. Find similar implementation examples.
+11. Use brainstorming if the requirement or design is unclear.
+12. Implement according to project-local context.
+13. Run relevant verification.
+14. Summarize changes, verification, risks, and manual review points.
 
 ## Missing Context Behavior
 
@@ -54,6 +61,13 @@ If `docs/ai-coding/` does not exist:
 1. Tell the user that project-local context has not been initialized.
 2. Recommend running `project-context-init` or using the alias `develop:init`.
 3. If the user wants to continue anyway, proceed with ordinary feature development and state that no project-local AI context was available.
+
+If `docs/ai-coding/` exists but no matching scoped context can be selected:
+
+1. Read `docs/ai-coding/contexts.md` if present.
+2. List plausible context scopes briefly.
+3. Ask the user which context applies before coding.
+4. If no scoped contexts exist but legacy root files exist, use the legacy root context and mention that it is unscoped.
 
 ## Relationship To Brainstorming
 

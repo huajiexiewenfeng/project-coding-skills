@@ -17,14 +17,25 @@ For multi-module projects, prefer the root that owns `docs/ai-coding/`, even whe
 
 ## Context Loading
 
-Read from the resolved project root only:
+Read from the resolved project root only. Then select one context directory.
+
+Selection priority:
+
+1. User-specified context path or context scope.
+2. `docs/ai-coding/<context-scope>/` matching the current module, feature area, or declared core workspace.
+3. The only scoped context under `docs/ai-coding/` if exactly one exists.
+4. Legacy root files directly under `docs/ai-coding/`.
+
+If multiple scoped contexts are plausible, ask the user which one applies before coding.
+
+For scoped context, read:
 
 ```text
-docs/ai-coding/feature-prompt-context.md
-docs/ai-coding/project-profile.md
-docs/ai-coding/architecture-summary.md
-docs/ai-coding/coding-rules.md
-docs/ai-coding/open-questions.md
+docs/ai-coding/<context-scope>/feature-prompt-context.md
+docs/ai-coding/<context-scope>/project-profile.md
+docs/ai-coding/<context-scope>/architecture-summary.md
+docs/ai-coding/<context-scope>/coding-rules.md
+docs/ai-coding/<context-scope>/open-questions.md
 ```
 
 Required:
@@ -40,12 +51,14 @@ Optional when relevant:
 
 If `project-profile.md` or `architecture-summary.md` declares focus modules, use those modules as the primary source-reading scope for feature work.
 
+Do not load rules from a different scoped context unless the user explicitly switches context.
+
 ## Feature Intake Templates
 
 Select a feature intake template in this priority order:
 
 1. User-specified template or section for the current task.
-2. Project-approved template under `docs/ai-coding/prompt-templates/` or declared in `feature-prompt-context.md`.
+2. Project-approved template under `docs/ai-coding/<context-scope>/prompt-templates/` or declared in the selected `feature-prompt-context.md`.
 3. Project candidate template under `docs/prompt-template/` or other user-provided project docs, after asking whether to use it.
 4. Skill default template: `references/default-feature-intake-template.md` or `references/default-feature-intake-template.zh.md`.
 

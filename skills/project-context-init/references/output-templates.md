@@ -1,6 +1,19 @@
 # Output Templates
 
-Use these templates when generating `docs/ai-coding/` in the target project.
+Use these templates when generating project-local AI coding context in the target project.
+
+Root registry path:
+
+```text
+docs/ai-coding/contexts.md
+```
+
+Scoped context paths:
+
+```text
+docs/ai-coding/<context-scope>/
+docs/ai-coding/<context-scope>/prompt-templates/
+```
 
 ## Language Rendering Rules
 
@@ -22,6 +35,25 @@ Suggested Chinese title mapping:
 | `ai-context-sources.md` | AI Context Sources | AI 上下文来源 |
 | `feature-prompt-context.md` | Feature Prompt Context | 功能开发上下文 |
 | `open-questions.md` | Open Questions | 待确认问题 |
+| `contexts.md` | AI Coding Contexts | AI 编码上下文索引 |
+
+## contexts.md
+
+```markdown
+# AI Coding Contexts
+
+This file indexes AI coding contexts for this repository. Each scoped context applies only to the listed workspace unless an architect extends it.
+
+| Context Scope | Context Directory | Core Workspace | Reference Area | Status | Last Updated |
+|---|---|---|---|---|---|
+| `<context-scope>` | `docs/ai-coding/<context-scope>/` | `<core paths>` | `<reference paths or none>` | `<draft | architect-reviewed | unknown>` | `<date or unknown>` |
+
+## Rules
+
+- Use the context that matches the module or feature being changed.
+- Do not apply one scoped context to another module without explicit confirmation.
+- Source code, configuration, build files, and tests remain the source of truth.
+```
 
 ## prompt-templates/feature-intake-template.md
 
@@ -87,6 +119,8 @@ Use this project-local template to collect feature inputs before implementation.
 ## Context Status
 
 - Mode: `<first-run bootstrap | update/refresh>`
+- Context scope: `<context-scope>`
+- Context directory: `docs/ai-coding/<context-scope>/`
 - Last updated: `<date or unknown>`
 - Review status: `<draft | architect-reviewed | unknown>`
 
@@ -228,7 +262,8 @@ Prompt templates are feature-intake aids, not source-of-truth project facts.
 ## Before Coding
 
 - Resolve the current project root.
-- Read this project's `docs/ai-coding/` only.
+- Select the matching context under this project's `docs/ai-coding/<context-scope>/`.
+- Read only the selected context directory unless the user explicitly switches context.
 - Read related code before changing anything.
 - Find similar existing implementation first.
 - Prefer existing project patterns.
@@ -240,6 +275,7 @@ Prompt templates are feature-intake aids, not source-of-truth project facts.
 - Follow `architecture-summary.md` and `coding-rules.md`.
 - Source code wins over AI-generated docs.
 - Do not apply rules from another project.
+- Do not apply rules from another scoped context unless explicitly selected.
 
 ## Feature Workflow
 
@@ -257,7 +293,7 @@ Prompt templates are feature-intake aids, not source-of-truth project facts.
 Template priority:
 
 1. User-specified template or section for the current task.
-2. Project-approved template under `docs/ai-coding/prompt-templates/`.
+2. Project-approved template under `docs/ai-coding/<context-scope>/prompt-templates/`.
 3. Project candidate template under `docs/prompt-template/`, after user confirmation.
 4. Skill default template.
 
