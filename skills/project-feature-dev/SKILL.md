@@ -24,7 +24,8 @@ Read shared standards from `docs/ai-coding/standards/` before scoped context rul
 When docs/ai-coding contains scoped contexts, select the matching context directory before reading rules.
 Never apply one scoped context to another module unless the user explicitly selects it.
 Lock the selected context for the current session and do not switch to another context without explicit confirmation.
-If a different context is requested after one is already loaded, treat it as a context switch, not an additive load.
+If a different context is requested after one is already loaded, warn that running project-feature-dev for the new context may replace the previously loaded runtime context.
+Treat context switch as replacement, not additive load.
 Do not write session lock state into project docs; project docs may contain static context boundaries only.
 If the selected context appears unreviewed or open-questions.md contains unresolved project-rule questions, warn before relying on it.
 ```
@@ -50,7 +51,7 @@ Read these reference files when using this skill:
 5. Apply the context lock:
    - if no context is loaded in the current session, lock the selected context.
    - if the same context is already loaded, continue.
-   - if another context is already loaded, stop and ask for explicit switch confirmation before reading the new context.
+   - if another context is already loaded, warn that loading the new context may replace the previous runtime context, then stop and ask for explicit switch confirmation before reading the new context.
 6. Read the selected context's `feature-prompt-context.md`.
 7. Read the selected context's `open-questions.md` and warn if project-rule questions appear unresolved.
 8. Read `project-profile.md`, `architecture-summary.md`, and `coding-rules.md` from the selected context as needed.
@@ -79,10 +80,11 @@ If the user later asks for a different context in the same session, do not load 
 ```text
 Current locked context: <previous-context>
 Requested context: <new-context>
-Switching will make the previous context rules no longer applicable. Confirm switch?
+Warning: loading the requested context may replace the previously loaded runtime context in this session. The previous context rules may no longer be reliably available.
+Confirm switching from <previous-context> to <new-context>?
 ```
 
-If the user confirms, switch the lock and explicitly ignore rules from the previous context. If the user does not confirm, continue using the locked context.
+If the user confirms, switch the lock and explicitly treat the new context as replacing the previous runtime context. If the user does not confirm, continue using the locked context.
 
 Treat ambiguous short aliases such as `dev`, unclear module names, or context names not listed in `contexts.md` as potential mistakes. Ask before switching.
 

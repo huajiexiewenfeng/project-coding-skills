@@ -70,9 +70,9 @@ Lock behavior:
 
 - First load: state the locked context scope and directory.
 - Same context requested again: continue normally.
-- Different context requested later: stop and ask for explicit switch confirmation.
+- Different context requested later: warn that loading the new context may replace the previously loaded runtime context, then stop and ask for explicit switch confirmation.
 - Ambiguous context requested, such as `dev` or a name not listed in `contexts.md`: treat it as a possible mistake and ask before switching.
-- Confirmed switch: state previous context, new context, and that previous rules no longer apply.
+- Confirmed switch: state previous context, new context, and that the new context replaces the previous runtime context.
 - Unconfirmed switch: continue using the current locked context.
 
 Never merge rules, architecture facts, prompt templates, or assumptions from the previous context into the new context.
