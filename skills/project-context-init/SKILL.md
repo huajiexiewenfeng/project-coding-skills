@@ -18,6 +18,7 @@ Source code, configuration, build files, and tests are the source of truth.
 Existing AI-generated docs are supporting context, not authority.
 Prompt templates with placeholders are feature-intake templates, not project facts.
 When AI docs conflict with source code, source code wins.
+Shared AI behavior standards belong under `docs/ai-coding/standards/`, not inside `contexts.md` or a scoped context body.
 Always resolve context from the current working directory or an explicitly specified project root.
 When no project path is provided, treat the current working directory as the project root.
 When the user provides focus modules or scope paths, keep project root broad enough for shared docs but limit source sampling to those paths.
@@ -135,11 +136,13 @@ If legacy root-level files such as `docs/ai-coding/project-profile.md` already e
 ## First-Run Bootstrap
 
 If the selected context directory does not exist, create `docs/ai-coding/` and `docs/ai-coding/<context-scope>/`. Also create `docs/ai-coding/<context-scope>/prompt-templates/`.
+Create `docs/ai-coding/standards/` if it does not exist.
 
 Create or update the root registry:
 
 ```text
 docs/ai-coding/contexts.md
+docs/ai-coding/standards/llm-coding-guidelines.md
 ```
 
 Create starter templates when no project-approved prompt template exists:
@@ -155,6 +158,7 @@ After bootstrapping, guide the user in plain language:
 
 - Show the created files.
 - Explain that these are project-local files committed to the business project.
+- Explain that shared standards apply to all scoped contexts unless a context explicitly narrows them.
 - Ask the user or architect to edit the starter template if the default fields are not enough.
 - If the user already provided core workspace, reference area, and feature focus, continue initialization.
 - If critical information is missing, stop after bootstrap and ask the user to fill or confirm the template before continuing.
@@ -167,6 +171,7 @@ If the selected context directory already exists, do not bootstrap from scratch.
 Before scanning source:
 
 - Read existing `docs/ai-coding/contexts.md` if present.
+- Read existing `docs/ai-coding/standards/*.md` if present.
 - Read all existing `docs/ai-coding/<context-scope>/*.md`.
 - Detect whether `coding-rules.md`, `feature-prompt-context.md`, or prompt templates contain reviewed project guidance.
 - Treat existing reviewed guidance as user/architect-authored content.
@@ -177,6 +182,7 @@ During update:
 - Keep stable reviewed rules unless source evidence clearly contradicts them.
 - If source evidence contradicts existing project guidance, keep the existing text and record the conflict in `open-questions.md`.
 - Do not recreate starter templates if `docs/ai-coding/<context-scope>/prompt-templates/` already contains project templates.
+- Do not overwrite shared standards if `docs/ai-coding/standards/llm-coding-guidelines.md` has been edited by the team.
 - If starter templates exist unchanged, they may be updated only when the built-in starter template changed and no project-specific edits are detected.
 - If unsure whether a file was architect-edited, preserve it and add a review note.
 
@@ -224,6 +230,7 @@ Generate or update these files under the resolved project root:
 
 ```text
 docs/ai-coding/contexts.md
+docs/ai-coding/standards/llm-coding-guidelines.md
 docs/ai-coding/<context-scope>/project-profile.md
 docs/ai-coding/<context-scope>/architecture-summary.md
 docs/ai-coding/<context-scope>/coding-rules.md
@@ -246,6 +253,7 @@ If the selected context directory already exists:
 - Do not reset generated files back to blank templates.
 - Do not overwrite project-approved prompt templates.
 - Do not mix facts or rules from another scoped context into this one.
+- Do not silently replace shared standards; append review notes or ask when changes are needed.
 
 ## Final Response
 

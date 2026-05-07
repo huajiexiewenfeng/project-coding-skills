@@ -19,6 +19,15 @@ For multi-module projects, prefer the root that owns `docs/ai-coding/`, even whe
 
 Read from the resolved project root only. Then select one context directory.
 
+First read shared standards when present:
+
+```text
+docs/ai-coding/standards/llm-coding-guidelines.md
+docs/ai-coding/standards/*.md
+```
+
+Shared standards define AI behavior such as thinking before coding, simplicity, surgical changes, and verification discipline. They do not override source-code facts or the selected context's project-specific architecture rules.
+
 Selection priority:
 
 1. User-specified context path or context scope.
@@ -52,6 +61,13 @@ Optional when relevant:
 If `project-profile.md` or `architecture-summary.md` declares focus modules, use those modules as the primary source-reading scope for feature work.
 
 Do not load rules from a different scoped context unless the user explicitly switches context.
+
+Rule priority:
+
+1. Source code, configuration, build files, and tests.
+2. Shared standards under `docs/ai-coding/standards/`.
+3. Selected scoped context files.
+4. User's current feature request.
 
 ## Feature Intake Templates
 
@@ -91,17 +107,20 @@ Before relying on project-local context:
 ## Before Coding
 
 1. Restate the feature request briefly.
-2. Identify likely modules or packages, prioritizing declared focus modules.
-3. Read related code.
-4. Find similar existing implementation.
-5. Note any relevant project-local coding rules.
-6. Select and apply the feature intake template.
-7. Use brainstorming if requirements or behavior are not clear.
+2. State key assumptions or ask if unclear.
+3. Identify likely modules or packages, prioritizing declared focus modules.
+4. Read related code.
+5. Find similar existing implementation.
+6. Note relevant shared standards and project-local coding rules.
+7. Select and apply the feature intake template.
+8. Use brainstorming if requirements or behavior are not clear.
 
 ## Implementation Rules
 
 - Follow current project style.
+- Prefer the smallest implementation that satisfies the request.
 - Keep changes focused on the feature.
+- Avoid speculative abstractions, adjacent cleanup, and unrelated formatting changes.
 - Do not introduce new framework choices without explicit need.
 - Do not change public compatibility unless requested.
 - Add or update tests when business logic changes.

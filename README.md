@@ -45,6 +45,8 @@ It scans the current project, treats source code as the source of truth, reads e
 ```text
 docs/ai-coding/
   contexts.md
+  standards/
+    llm-coding-guidelines.md
   <context-scope>/
     project-profile.md
     architecture-summary.md
@@ -72,6 +74,7 @@ It does not replace brainstorming or design workflows. It loads project context 
 Source code is the source of truth.
 AI-generated docs are context, not authority.
 Each project owns its own docs/ai-coding/.
+Shared AI behavior standards live under docs/ai-coding/standards/.
 Each module or bounded context may own its own docs/ai-coding/<context-scope>/.
 Never reuse context from another project.
 Never apply one scoped context to another module unless explicitly selected.
@@ -156,6 +159,7 @@ This creates:
 
 ```text
 docs/ai-coding/contexts.md
+docs/ai-coding/standards/llm-coding-guidelines.md
 docs/ai-coding/dji-adapter/
 ```
 
@@ -165,6 +169,7 @@ On first run, `project-context-init` creates the project-local context directory
 
 ```text
 docs/ai-coding/contexts.md
+docs/ai-coding/standards/llm-coding-guidelines.md
 docs/ai-coding/<context-scope>/
 docs/ai-coding/<context-scope>/prompt-templates/feature-intake-template.md
 docs/ai-coding/<context-scope>/prompt-templates/feature-intake-template.zh.md
@@ -186,11 +191,13 @@ Review especially:
 docs/ai-coding/<context-scope>/open-questions.md
 docs/ai-coding/<context-scope>/coding-rules.md
 docs/ai-coding/<context-scope>/feature-prompt-context.md
+docs/ai-coding/standards/llm-coding-guidelines.md
 ```
 
 The reviewer should:
 
 - resolve or explicitly keep items in `open-questions.md`
+- adjust shared AI behavior standards in `standards/llm-coding-guidelines.md`
 - correct project-specific rules in `coding-rules.md`
 - refine the reusable team prompt in `feature-prompt-context.md`
 - decide whether discovered prompt templates should be adopted, filled first, merged with the default template, partially used, or skipped
@@ -206,7 +213,7 @@ In the same business project:
 Use develop:feature to implement this requirement: ...
 ```
 
-The skill loads only the selected context under the current project's `docs/ai-coding/<context-scope>/` and follows that context's coding style. If multiple contexts exist, it asks which one applies.
+The skill first reads shared standards under `docs/ai-coding/standards/`, then loads the selected context under `docs/ai-coding/<context-scope>/`. If multiple contexts exist, it asks which one applies.
 
 `project-feature-dev` includes a default feature intake template. Project teams may override it with approved templates under `docs/ai-coding/<context-scope>/prompt-templates/`, or provide candidate templates under `docs/prompt-template/`. User-specified templates for the current task have the highest priority.
 

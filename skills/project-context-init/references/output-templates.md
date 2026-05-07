@@ -6,6 +6,7 @@ Root registry path:
 
 ```text
 docs/ai-coding/contexts.md
+docs/ai-coding/standards/llm-coding-guidelines.md
 ```
 
 Scoped context paths:
@@ -36,6 +37,7 @@ Suggested Chinese title mapping:
 | `feature-prompt-context.md` | Feature Prompt Context | 功能开发上下文 |
 | `open-questions.md` | Open Questions | 待确认问题 |
 | `contexts.md` | AI Coding Contexts | AI 编码上下文索引 |
+| `standards/llm-coding-guidelines.md` | LLM Coding Guidelines | LLM 编码行为规范 |
 
 ## contexts.md
 
@@ -51,8 +53,80 @@ This file indexes AI coding contexts for this repository. Each scoped context ap
 ## Rules
 
 - Use the context that matches the module or feature being changed.
+- Read shared standards under `docs/ai-coding/standards/` before scoped context rules.
 - Do not apply one scoped context to another module without explicit confirmation.
 - Source code, configuration, build files, and tests remain the source of truth.
+```
+
+## standards/llm-coding-guidelines.md
+
+```markdown
+# LLM Coding Guidelines
+
+Behavioral guidelines to reduce common LLM coding mistakes. Merge with project-specific instructions as needed.
+
+Tradeoff: These guidelines bias toward caution over speed. For trivial tasks, use judgment.
+
+## 1. Think Before Coding
+
+Do not assume. Do not hide confusion. Surface tradeoffs.
+
+Before implementing:
+
+- State assumptions explicitly. If uncertain, ask.
+- If multiple interpretations exist, present them instead of picking silently.
+- If a simpler approach exists, say so. Push back when warranted.
+- If something is unclear, stop, name what is confusing, and ask.
+
+## 2. Simplicity First
+
+Minimum code that solves the problem. Nothing speculative.
+
+- No features beyond what was asked.
+- No abstractions for single-use code.
+- No flexibility or configurability that was not requested.
+- No error handling for impossible scenarios.
+- If 200 lines could be 50, simplify.
+
+Ask: "Would a senior engineer say this is overcomplicated?" If yes, simplify.
+
+## 3. Surgical Changes
+
+Touch only what is necessary. Clean up only your own changes.
+
+When editing existing code:
+
+- Do not improve adjacent code, comments, or formatting.
+- Do not refactor things that are not broken.
+- Match existing style, even if another style seems preferable.
+- If unrelated dead code is found, mention it instead of deleting it.
+
+When changes create orphans:
+
+- Remove imports, variables, or functions made unused by the current change.
+- Do not remove pre-existing dead code unless requested.
+
+Every changed line should trace directly to the user's request.
+
+## 4. Goal-Driven Execution
+
+Define success criteria. Loop until verified.
+
+Transform tasks into verifiable goals:
+
+- "Add validation" -> "Write tests for invalid inputs, then make them pass"
+- "Fix the bug" -> "Write a test that reproduces it, then make it pass"
+- "Refactor X" -> "Ensure tests pass before and after"
+
+For multi-step tasks, state a brief plan:
+
+```text
+1. [Step] -> verify: [check]
+2. [Step] -> verify: [check]
+3. [Step] -> verify: [check]
+```
+
+These guidelines are working if diffs contain fewer unnecessary changes, fewer rewrites are caused by overcomplication, and clarifying questions happen before implementation rather than after mistakes.
 ```
 
 ## prompt-templates/feature-intake-template.md
@@ -262,6 +336,7 @@ Prompt templates are feature-intake aids, not source-of-truth project facts.
 ## Before Coding
 
 - Resolve the current project root.
+- Read shared standards from `docs/ai-coding/standards/llm-coding-guidelines.md` when present.
 - Select the matching context under this project's `docs/ai-coding/<context-scope>/`.
 - Read only the selected context directory unless the user explicitly switches context.
 - Read related code before changing anything.
@@ -273,6 +348,7 @@ Prompt templates are feature-intake aids, not source-of-truth project facts.
 ## Architecture Rules
 
 - Follow `architecture-summary.md` and `coding-rules.md`.
+- Follow shared standards for AI behavior, especially simplicity, surgical changes, and explicit assumptions.
 - Source code wins over AI-generated docs.
 - Do not apply rules from another project.
 - Do not apply rules from another scoped context unless explicitly selected.
