@@ -71,7 +71,7 @@ After selecting a scoped context, lock it for the current session.
 Lock behavior:
 
 - First load: state the locked context scope and directory.
-- Same context requested again: continue normally.
+- Same context requested again after project-feature-dev already ran in this session: warn that reloading may overwrite, dilute, or de-prioritize the previous runtime context; ask whether to continue with already-loaded context, reload, or start a new session.
 - Different context requested later: warn that loading the new context may replace the previously loaded runtime context, then stop and ask for explicit switch confirmation.
 - Ambiguous context requested, such as `dev` or a name not listed in `contexts.md`: treat it as a possible mistake and ask before switching.
 - Confirmed switch: state previous context, new context, and that the new context replaces the previous runtime context.
@@ -80,6 +80,31 @@ Lock behavior:
 Never merge rules, architecture facts, prompt templates, or assumptions from the previous context into the new context.
 
 The lock is runtime-only. Do not write the current session's locked context into `feature-prompt-context.md`, `contexts.md`, or other project docs. Project docs should only describe static context boundaries.
+
+## Repeated Invocation Guard
+
+If project-feature-dev has already loaded context in the current session, warn before running it again.
+
+This applies even when:
+
+- the scoped context is the same.
+- the module is the same.
+- the user is starting a different feature in the same module.
+
+Ask in this shape:
+
+```text
+project-feature-dev has already loaded context in this session.
+Current locked context: <context-scope>
+Requested feature: <feature-summary>
+Warning: running project-feature-dev again may overwrite, dilute, or de-prioritize the previous runtime context from earlier feature work in this session.
+Choose one:
+1. Continue using the already-loaded context without reloading.
+2. Reload the same context for this new feature.
+3. Start a new session for this feature.
+```
+
+Recommend option 1 for small follow-ups and option 3 for substantial new features.
 
 ## Scope Drift Guard
 

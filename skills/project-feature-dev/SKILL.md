@@ -25,6 +25,7 @@ When docs/ai-coding contains scoped contexts, select the matching context direct
 Never apply one scoped context to another module unless the user explicitly selects it.
 Lock the selected context for the current session and do not switch to another context without explicit confirmation.
 If a different context is requested after one is already loaded, warn that running project-feature-dev for the new context may replace the previously loaded runtime context.
+If project-feature-dev is invoked again after any feature development context was already loaded in the current session, warn that reloading context may overwrite, dilute, or de-prioritize the previous runtime context, even when the scoped context is the same.
 Treat context switch as replacement, not additive load.
 Do not write session lock state into project docs; project docs may contain static context boundaries only.
 If the request appears to target a module or feature area outside the locked context's core workspace, warn about scope drift before reading broad source code.
@@ -52,14 +53,16 @@ Read these reference files when using this skill:
    - legacy root `docs/ai-coding/feature-prompt-context.md`
 5. Apply the context lock:
    - if no context is loaded in the current session, lock the selected context.
-   - if the same context is already loaded, continue.
+   - if project-feature-dev was already run in the current session, warn that reloading context may overwrite, dilute, or de-prioritize the previous runtime context; ask whether to reload, continue with the already-loaded context, or start a new session.
+   - if the same context is already loaded and the user confirms reload, continue.
    - if another context is already loaded, warn that loading the new context may replace the previous runtime context, then stop and ask for explicit switch confirmation before reading the new context.
 6. If the selected context is `legacy-root` or unscoped in a multi-module repository, warn and ask for a scoped context before proceeding with feature work.
 7. Read the selected context's `feature-prompt-context.md`.
 8. Read the selected context's `open-questions.md` and warn if project-rule questions appear unresolved.
 9. Read `project-profile.md`, `architecture-summary.md`, and `coding-rules.md` from the selected context as needed.
-10. Check for scope drift:
+10. Check for scope drift after the repeated-invocation warning:
    - compare the feature request, likely module names, and intended files with the selected context's core workspace.
+   - if the feature appears inside the same core workspace, treat it as a new feature focus under the same context, but still respect the repeated-invocation warning if project-feature-dev already ran in this session.
    - if the feature appears outside that workspace, stop and ask whether to continue with the locked context or switch/init another context.
 11. Select the feature intake template using the template priority rules.
 12. Understand the user's feature request and collect required missing inputs.
@@ -97,6 +100,27 @@ Treat ambiguous short aliases such as `dev`, unclear module names, or context na
 Context lock applies only within the current conversation/session. A new session must load context again.
 
 Do not persist the runtime lock into `feature-prompt-context.md`, `contexts.md`, or any other project file.
+
+## Repeated Invocation Guard
+
+If project-feature-dev has already loaded feature development context in the current session, do not silently run it again.
+
+Warn even when the requested scoped context is the same and the new feature is in the same module. Same-context feature development is allowed, but re-running project-feature-dev may add a large new context block and make previous feature discussion less reliable.
+
+Use this prompt:
+
+```text
+project-feature-dev has already loaded context in this session.
+Current locked context: <context-scope>
+Requested feature: <feature-summary>
+Warning: running project-feature-dev again may overwrite, dilute, or de-prioritize the previous runtime context from earlier feature work in this session.
+Choose one:
+1. Continue using the already-loaded context without reloading.
+2. Reload the same context for this new feature.
+3. Start a new session for this feature.
+```
+
+Default recommendation: choose option 1 for small follow-up work in the same context; choose option 3 for a substantial new feature.
 
 ## Scope Drift Guard
 
