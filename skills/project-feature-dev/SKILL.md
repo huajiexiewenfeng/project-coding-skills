@@ -27,6 +27,8 @@ Lock the selected context for the current session and do not switch to another c
 If a different context is requested after one is already loaded, warn that running project-feature-dev for the new context may replace the previously loaded runtime context.
 Treat context switch as replacement, not additive load.
 Do not write session lock state into project docs; project docs may contain static context boundaries only.
+If the request appears to target a module or feature area outside the locked context's core workspace, warn about scope drift before reading broad source code.
+Do not use `legacy-root` as a silent default for new feature work in a multi-module repository; ask the user to choose or create a scoped context.
 If the selected context appears unreviewed or open-questions.md contains unresolved project-rule questions, warn before relying on it.
 ```
 
@@ -52,17 +54,21 @@ Read these reference files when using this skill:
    - if no context is loaded in the current session, lock the selected context.
    - if the same context is already loaded, continue.
    - if another context is already loaded, warn that loading the new context may replace the previous runtime context, then stop and ask for explicit switch confirmation before reading the new context.
-6. Read the selected context's `feature-prompt-context.md`.
-7. Read the selected context's `open-questions.md` and warn if project-rule questions appear unresolved.
-8. Read `project-profile.md`, `architecture-summary.md`, and `coding-rules.md` from the selected context as needed.
-9. Select the feature intake template using the template priority rules.
-10. Understand the user's feature request and collect required missing inputs.
-11. Read related source code in the same project root, prioritizing the selected context's core workspace.
-12. Find similar implementation examples.
-13. Use brainstorming if the requirement or design is unclear.
-14. Implement according to project-local context.
-15. Run relevant verification.
-16. Summarize changes, verification, risks, and manual review points.
+6. If the selected context is `legacy-root` or unscoped in a multi-module repository, warn and ask for a scoped context before proceeding with feature work.
+7. Read the selected context's `feature-prompt-context.md`.
+8. Read the selected context's `open-questions.md` and warn if project-rule questions appear unresolved.
+9. Read `project-profile.md`, `architecture-summary.md`, and `coding-rules.md` from the selected context as needed.
+10. Check for scope drift:
+   - compare the feature request, likely module names, and intended files with the selected context's core workspace.
+   - if the feature appears outside that workspace, stop and ask whether to continue with the locked context or switch/init another context.
+11. Select the feature intake template using the template priority rules.
+12. Understand the user's feature request and collect required missing inputs.
+13. Read related source code in the same project root, prioritizing the selected context's core workspace.
+14. Find similar implementation examples.
+15. Use brainstorming if the requirement or design is unclear.
+16. Implement according to project-local context.
+17. Run relevant verification.
+18. Summarize changes, verification, risks, and manual review points.
 
 ## Context Lock
 
@@ -91,6 +97,26 @@ Treat ambiguous short aliases such as `dev`, unclear module names, or context na
 Context lock applies only within the current conversation/session. A new session must load context again.
 
 Do not persist the runtime lock into `feature-prompt-context.md`, `contexts.md`, or any other project file.
+
+## Scope Drift Guard
+
+Before reading broad source code or implementing, compare the feature request against the locked context's core workspace.
+
+Warn and ask before continuing when:
+
+- the locked context is `legacy-root` or otherwise unscoped in a multi-module repository.
+- the feature name, module path, package name, or likely implementation area points outside the locked context.
+- the user gives a vague request after a context was locked and the likely target module is not part of that context.
+
+Use this prompt:
+
+```text
+Current locked context: <context-scope>
+Core workspace: <core-workspace>
+Requested feature appears to target: <suspected-module-or-area>
+Warning: continuing may use the wrong project context or replace the previously loaded runtime context.
+Should I continue with <context-scope>, switch to another context, or run develop:init for a new scoped context?
+```
 
 ## Missing Context Behavior
 

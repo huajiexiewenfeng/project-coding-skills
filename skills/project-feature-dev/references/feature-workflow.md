@@ -37,6 +37,8 @@ Selection priority:
 
 If multiple scoped contexts are plausible, ask the user which one applies before coding.
 
+Do not silently choose legacy root context for feature work in a multi-module repository. If only legacy root exists, warn that it is unscoped and ask whether to create or select a scoped context.
+
 For scoped context, read:
 
 ```text
@@ -78,6 +80,26 @@ Lock behavior:
 Never merge rules, architecture facts, prompt templates, or assumptions from the previous context into the new context.
 
 The lock is runtime-only. Do not write the current session's locked context into `feature-prompt-context.md`, `contexts.md`, or other project docs. Project docs should only describe static context boundaries.
+
+## Scope Drift Guard
+
+Before broad source search or implementation, compare the feature request with the locked context's core workspace.
+
+Stop and ask when:
+
+- locked context is `legacy-root` or unscoped in a multi-module repository.
+- requested feature appears to target a different module, package, or business area.
+- the user did not name a context and the likely target is outside the locked context.
+
+Ask in this shape:
+
+```text
+Current locked context: <context-scope>
+Core workspace: <core-workspace>
+Requested feature appears to target: <suspected-module-or-area>
+Warning: continuing may use the wrong project context or replace the previously loaded runtime context.
+Should I continue with <context-scope>, switch to another context, or run develop:init for a new scoped context?
+```
 
 Rule priority:
 
@@ -126,11 +148,12 @@ Before relying on project-local context:
 1. Restate the feature request briefly.
 2. State key assumptions or ask if unclear.
 3. Identify likely modules or packages, prioritizing declared focus modules.
-4. Read related code.
-5. Find similar existing implementation.
-6. Note relevant shared standards and project-local coding rules.
-7. Select and apply the feature intake template.
-8. Use brainstorming if requirements or behavior are not clear.
+4. Check for scope drift before broad source search.
+5. Read related code.
+6. Find similar existing implementation.
+7. Note relevant shared standards and project-local coding rules.
+8. Select and apply the feature intake template.
+9. Use brainstorming if requirements or behavior are not clear.
 
 ## Implementation Rules
 
