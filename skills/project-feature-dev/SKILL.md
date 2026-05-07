@@ -23,6 +23,9 @@ If docs/ai-coding does not exist, recommend project-context-init.
 Read shared standards from `docs/ai-coding/standards/` before scoped context rules when present.
 When docs/ai-coding contains scoped contexts, select the matching context directory before reading rules.
 Never apply one scoped context to another module unless the user explicitly selects it.
+Lock the selected context for the current session and do not switch to another context without explicit confirmation.
+If a different context is requested after one is already loaded, treat it as a context switch, not an additive load.
+Do not write session lock state into project docs; project docs may contain static context boundaries only.
 If the selected context appears unreviewed or open-questions.md contains unresolved project-rule questions, warn before relying on it.
 ```
 
@@ -44,17 +47,48 @@ Read these reference files when using this skill:
    - matching `docs/ai-coding/<context-scope>/`
    - the only scoped context if exactly one exists
    - legacy root `docs/ai-coding/feature-prompt-context.md`
-5. Read the selected context's `feature-prompt-context.md`.
-6. Read the selected context's `open-questions.md` and warn if project-rule questions appear unresolved.
-7. Read `project-profile.md`, `architecture-summary.md`, and `coding-rules.md` from the selected context as needed.
-8. Select the feature intake template using the template priority rules.
-9. Understand the user's feature request and collect required missing inputs.
-10. Read related source code in the same project root, prioritizing the selected context's core workspace.
-11. Find similar implementation examples.
-12. Use brainstorming if the requirement or design is unclear.
-13. Implement according to project-local context.
-14. Run relevant verification.
-15. Summarize changes, verification, risks, and manual review points.
+5. Apply the context lock:
+   - if no context is loaded in the current session, lock the selected context.
+   - if the same context is already loaded, continue.
+   - if another context is already loaded, stop and ask for explicit switch confirmation before reading the new context.
+6. Read the selected context's `feature-prompt-context.md`.
+7. Read the selected context's `open-questions.md` and warn if project-rule questions appear unresolved.
+8. Read `project-profile.md`, `architecture-summary.md`, and `coding-rules.md` from the selected context as needed.
+9. Select the feature intake template using the template priority rules.
+10. Understand the user's feature request and collect required missing inputs.
+11. Read related source code in the same project root, prioritizing the selected context's core workspace.
+12. Find similar implementation examples.
+13. Use brainstorming if the requirement or design is unclear.
+14. Implement according to project-local context.
+15. Run relevant verification.
+16. Summarize changes, verification, risks, and manual review points.
+
+## Context Lock
+
+Maintain a session-local context lock after selecting a scoped context.
+
+When a context is first loaded, state:
+
+```text
+Context locked: <context-scope>
+Context directory: docs/ai-coding/<context-scope>/
+```
+
+If the user later asks for a different context in the same session, do not load it silently. Ask for confirmation and state:
+
+```text
+Current locked context: <previous-context>
+Requested context: <new-context>
+Switching will make the previous context rules no longer applicable. Confirm switch?
+```
+
+If the user confirms, switch the lock and explicitly ignore rules from the previous context. If the user does not confirm, continue using the locked context.
+
+Treat ambiguous short aliases such as `dev`, unclear module names, or context names not listed in `contexts.md` as potential mistakes. Ask before switching.
+
+Context lock applies only within the current conversation/session. A new session must load context again.
+
+Do not persist the runtime lock into `feature-prompt-context.md`, `contexts.md`, or any other project file.
 
 ## Missing Context Behavior
 

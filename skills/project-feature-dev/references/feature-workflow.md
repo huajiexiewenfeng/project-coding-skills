@@ -62,6 +62,23 @@ If `project-profile.md` or `architecture-summary.md` declares focus modules, use
 
 Do not load rules from a different scoped context unless the user explicitly switches context.
 
+## Context Lock
+
+After selecting a scoped context, lock it for the current session.
+
+Lock behavior:
+
+- First load: state the locked context scope and directory.
+- Same context requested again: continue normally.
+- Different context requested later: stop and ask for explicit switch confirmation.
+- Ambiguous context requested, such as `dev` or a name not listed in `contexts.md`: treat it as a possible mistake and ask before switching.
+- Confirmed switch: state previous context, new context, and that previous rules no longer apply.
+- Unconfirmed switch: continue using the current locked context.
+
+Never merge rules, architecture facts, prompt templates, or assumptions from the previous context into the new context.
+
+The lock is runtime-only. Do not write the current session's locked context into `feature-prompt-context.md`, `contexts.md`, or other project docs. Project docs should only describe static context boundaries.
+
 Rule priority:
 
 1. Source code, configuration, build files, and tests.

@@ -345,6 +345,20 @@ Prompt templates are feature-intake aids, not source-of-truth project facts.
 - Keep changes small and focused.
 - Do not introduce new abstractions unless there is clear need.
 
+## Context Boundary
+
+- Context scope: `<context-scope>`
+- Context directory: `docs/ai-coding/<context-scope>/`
+- Applies to: `<core workspace paths>`
+
+Rules:
+
+- This context only applies to the listed core workspace and its confirmed dependencies.
+- Do not apply this context to another module or business area without explicit confirmation.
+- If another context is needed, load that context separately instead of blending rules.
+- Do not blend coding rules, architecture facts, prompt templates, or assumptions from another scoped context.
+- Runtime session context locks are handled by `project-feature-dev`; do not record session state in this file.
+
 ## Architecture Rules
 
 - Follow `architecture-summary.md` and `coding-rules.md`.
